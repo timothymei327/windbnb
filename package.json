@@ -1,0 +1,21 @@
+{
+  "name": "windbnb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timothymei327/windbnb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timothymei327/windbnb/issues"
+  },
+  "homepage": "https://github.com/timothymei327/windbnb#readme"
+}
