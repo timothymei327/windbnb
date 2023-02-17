@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Signup = () => {
   const [formValues, setFormValues] = useState({
@@ -12,30 +13,32 @@ const Signup = () => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
   }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-  //   send info to backend
-  //   await const ({
-  //     name: formValues.name,
-  //     email: formValues.email,
-  //     password: formValues.password
-  //   })
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios.get('/')
+    
 
-  //   setFormValues({
-  //     username: '',
-  //     email: '',
-  //     password: '',
-  //     confirmPassword: ''
-  //   })
-  //   navigate('/')
-  // }
+    // await const ({
+    //   name: formValues.name,
+    //   email: formValues.email,
+    //   password: formValues.password
+    // })
+
+    // setFormValues({
+    //   username: '',
+    //   email: '',
+    //   password: '',
+    //   confirmPassword: ''
+    // })
+    // navigate('/')
+  }
 
   return(
     <div className="grow flex items-center justify-around">
       <div className="mb-52 border border-gray-400 rounded-xl sm:max-w-md max-w-[80%] mx-auto p-9">
         <h1 className="text-md font-semibold text-center border-b-2 pb-3 mb-4">Sign up</h1>
         <h1 className="text-2xl font-medium mb-2">Welcome to Windbnb</h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input 
             onChange={handleChange}
             name='name'

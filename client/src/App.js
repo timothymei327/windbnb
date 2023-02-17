@@ -1,8 +1,11 @@
+import axios from 'axios'
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+
+axios.defaults.baseURL = 'http://localhost:3001'
 
 function App() {
   return (
