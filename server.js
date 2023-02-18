@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const db = require('./db')
 const PORT = process.env.PORT || 3001
 const { User } = require('./models')
@@ -38,6 +39,23 @@ app.post('/signup', async (req, res) => {
       res.status(500).json({ error: 'Server error' })
     }
   }
+})
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body
+  const userDoc = await User.findOne({ email })
+  if (!userDoc) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+  const checkPassword = await bcrypt.compare(password, userDoc.password)
+  if (!checkPassword) {
+    return res.status(401).json({ message: 'Incorrect password' })
+  }
+  const token = jwt.sign(
+    { email: userDoc.email, id: userDoc._id },
+    process.env.JWT_SECRET
+  )
+  res.cookie('token', token).json({ message: 'Successfully logged in' })
 })
 
 app.listen(PORT, () => {

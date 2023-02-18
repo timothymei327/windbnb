@@ -27,9 +27,9 @@ const Signup = () => {
         email: '',
         password: ''
       })
-      navigate('/')
+      navigate('/login')
     } catch(e) {
-      setError('Registration failed: ' + e.response.data.error)
+      setError('Error: ' + e.response.data.error)
     }}
 
   return(
@@ -62,7 +62,7 @@ const Signup = () => {
             value={formValues.password}
             required
           />
-          {error && <div className='text-red-500'>{error}</div>}
+          {error && <div className='text-red-500 text-center font-semibold'>{error}</div>}
           <button className="primary">Sign up</button>
           <div className='py-2 text-center'>Have an account? <Link to={'/login'} className='text-blue-500 font-medium'>Log in</Link></div>
         </form>
