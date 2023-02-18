@@ -24,12 +24,20 @@ app.get('/', (req, res) => {
 
 app.post('/signup', async (req, res) => {
   const { name, email, password } = req.body
-  const newUser = await User.create({
-    name,
-    email,
-    password: bcrypt.hashSync(password, bcryptSalt)
-  })
-  res.json(newUser)
+  try {
+    const newUser = await User.create({
+      name,
+      email,
+      password: bcrypt.hashSync(password, bcryptSalt)
+    })
+    res.json(newUser)
+  } catch (err) {
+    if (err.code === 11000) {
+      res.status(422).json({ error: 'Email already exists' })
+    } else {
+      res.status(500).json({ error: 'Server error' })
+    }
+  }
 })
 
 app.listen(PORT, () => {

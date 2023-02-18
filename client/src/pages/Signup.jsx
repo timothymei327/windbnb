@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Signup = () => {
+  let navigate = useNavigate()
+
   const [formValues, setFormValues] = useState({
     name: '',
     email: '',
@@ -13,28 +15,20 @@ const Signup = () => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
   }
 
-
-  //NEED TO COMPLETE HANDLESUBMIT FUNCTION
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(formValues)
-    await axios.post('/signup', formValues)}
-    
-
-  //   await const ({
-  //     name: formValues.name,
-  //     email: formValues.email,
-  //     password: formValues.password
-  //   })
-
-  //   setFormValues({
-  //     username: '',
-  //     email: '',
-  //     password: '',
-  //     confirmPassword: ''
-  //   })
-  //   navigate('/')
-  // }
+    try {
+      await axios.post('/signup', formValues)
+      alert('Congratulations, your account has been successfully created!')
+      setFormValues({
+        name: '',
+        email: '',
+        password: ''
+      })
+      navigate('/')
+    } catch(e) {
+      alert('Registration failed. Please try again later.')
+    }}
 
   return(
     <div className="grow flex items-center justify-around">
