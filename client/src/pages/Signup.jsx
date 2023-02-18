@@ -15,11 +15,10 @@ const Signup = () => {
 
 
   //NEED TO COMPLETE HANDLESUBMIT FUNCTION
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   axios.post('/signup', (req, res) => {
-  //     res.json()
-  //   })
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    console.log(formValues)
+    await axios.post('/signup', formValues)}
     
 
   //   await const ({
