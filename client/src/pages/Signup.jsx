@@ -5,11 +5,13 @@ import axios from 'axios'
 const Signup = () => {
   let navigate = useNavigate()
 
+  const [error, setError] = useState(null)
   const [formValues, setFormValues] = useState({
     name: '',
     email: '',
     password: ''
   })
+
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
@@ -27,7 +29,7 @@ const Signup = () => {
       })
       navigate('/')
     } catch(e) {
-      alert('Registration failed. Please try again later.')
+      setError('Registration failed: ' + e.response.data.error)
     }}
 
   return(
@@ -60,6 +62,7 @@ const Signup = () => {
             value={formValues.password}
             required
           />
+          {error && <div className='text-red-500'>{error}</div>}
           <button className="primary">Sign up</button>
           <div className='py-2 text-center'>Have an account? <Link to={'/login'} className='text-blue-500 font-medium'>Log in</Link></div>
         </form>
