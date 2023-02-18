@@ -13,25 +13,29 @@ const Signup = () => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    axios.get('/')
+
+  //NEED TO COMPLETE HANDLESUBMIT FUNCTION
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   axios.post('/signup', (req, res) => {
+  //     res.json()
+  //   })
     
 
-    // await const ({
-    //   name: formValues.name,
-    //   email: formValues.email,
-    //   password: formValues.password
-    // })
+  //   await const ({
+  //     name: formValues.name,
+  //     email: formValues.email,
+  //     password: formValues.password
+  //   })
 
-    // setFormValues({
-    //   username: '',
-    //   email: '',
-    //   password: '',
-    //   confirmPassword: ''
-    // })
-    // navigate('/')
-  }
+  //   setFormValues({
+  //     username: '',
+  //     email: '',
+  //     password: '',
+  //     confirmPassword: ''
+  //   })
+  //   navigate('/')
+  // }
 
   return(
     <div className="grow flex items-center justify-around">
