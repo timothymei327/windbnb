@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios'
+import { UserContext } from '../components/UserContext'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -11,6 +12,8 @@ const Login = () => {
     password: ''
   })
 
+  const {setUser} = useContext(UserContext)
+
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
   }
@@ -18,13 +21,14 @@ const Login = () => {
   const handleSubmit = async(e) => {
     e.preventDefault()
     try {
-      await axios.post('/login', formValues)
+      const res = await axios.post('/login', formValues)
+      setUser(res.data)
       alert('Login successful')
       setFormValues({
         email: '',
         password: ''
       })
-      navigate('/')
+      navigate('/home')
     } catch (e) {
       setError(e.response.data.message)
     }
