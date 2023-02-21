@@ -28,7 +28,7 @@ const Login = () => {
         email: '',
         password: ''
       })
-      navigate('/home')
+      navigate('/index')
     } catch (e) {
       setError(e.response.data.message)
     }

@@ -11,7 +11,7 @@ const UserContextProvider = ({children}) => {
 
   useEffect(() => {
     if (!user) {
-      const res = axios.get('/profile').then(() => {
+      const res = axios.get('/account').then(() => {
         setUser(res.data)
         setReady(true)
       })

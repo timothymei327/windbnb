@@ -8,7 +8,7 @@ const Header = () => {
   return(
     <div>
     <header className="p-5 flex justify-between">
-      <Link to='/home' className="flex items-center gap-2">
+      <Link to='/' className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
