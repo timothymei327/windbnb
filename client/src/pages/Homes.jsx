@@ -110,8 +110,7 @@ const Homes = () => {
                 <label>Check-in</label>
                 <input
                 name="checkin"
-                type="text"
-                placeholder='09:00'
+                type="time"
                 onChange={handleChange}
                 />
               </div>
@@ -119,8 +118,7 @@ const Homes = () => {
                 <label>Check-out</label>
                 <input
                 name="checkout"
-                type="text"
-                placeholder='14:00'
+                type="time"
                 onChange={handleChange}
                 />
               </div>
@@ -128,7 +126,7 @@ const Homes = () => {
                 <label>Max Guests</label>
                 <input
                 name="maxGuests"
-                type="text"
+                type="number"
                 placeholder='5'
                 onChange={handleChange}
                 />

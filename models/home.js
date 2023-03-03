@@ -8,8 +8,8 @@ const homeSchema = new Schema({
   description: String,
   perks: [String],
   thingsToKnow: String,
-  checkIn: Number,
-  checkOut: Number,
+  checkIn: String,
+  checkOut: String,
   maxGuests: Number
 })
 
