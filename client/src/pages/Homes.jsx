@@ -34,9 +34,8 @@ const Homes = () => {
   const addPhotoByLink = async (e) => {
     e.preventDefault()
     const {addedPhotos, photoLink} = formValues
-    const {data: filename} = await axios.post('/upload-by-link', {link: formValues.photoLink})
-    setFormValues({...formValues, addedPhotos: [...addedPhotos, filename]})
-    // setFormValues({...formValues, [photoLink]: ''})
+    const {data: filename} = await axios.post('/upload-by-link', {link: photoLink})
+    setFormValues({...formValues, addedPhotos: [...addedPhotos, filename], photoLink: ''})
   }
 
   return (
@@ -57,6 +56,7 @@ const Homes = () => {
             <input
               name="title"
               type="text"
+              value={formValues.title}
               placeholder='Stylish and Spacious Downtown Apartment'
               onChange={handleChange}
             />
@@ -64,6 +64,7 @@ const Homes = () => {
             <input
             name="address"
             type="text"
+            value={formValues.address}
             placeholder='123 Main St, Anytown, USA'
             onChange={handleChange}
             />
@@ -72,6 +73,7 @@ const Homes = () => {
               <input
               name="photoLink"
               type="text"
+              value={formValues.photoLink}
               placeholder='Add using a link'
               onChange={handleChange}
               />
@@ -88,6 +90,7 @@ const Homes = () => {
             <textarea
             name="description"
             type="text"
+            value={formValues.description}
             rows="5"
             placeholder='Description of your home' 
             onChange={handleChange}
@@ -96,6 +99,7 @@ const Homes = () => {
             <label className='text-xl px-1 font-medium'>Things to Know</label>
             <textarea
             name="thingsToKnow"
+            value={formValues.thingsToKnow}
             rows="5"
             placeholder='House rules, etc...'
             onChange={handleChange}
@@ -107,6 +111,7 @@ const Homes = () => {
                 <input
                 name="checkin"
                 type="time"
+                value={formValues.checkin}
                 onChange={handleChange}
                 />
               </div>
@@ -115,6 +120,7 @@ const Homes = () => {
                 <input
                 name="checkout"
                 type="time"
+                value={formValues.checkout}
                 onChange={handleChange}
                 />
               </div>
@@ -123,6 +129,7 @@ const Homes = () => {
                 <input
                 name="maxGuests"
                 type="number"
+                value={formValues.maxGuests}
                 placeholder='5'
                 onChange={handleChange}
                 />
