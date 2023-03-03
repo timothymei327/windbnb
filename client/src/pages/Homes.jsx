@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import axios from 'axios'
 import Perks from '../components/Perks'
 
 const Homes = () => {
@@ -28,20 +29,15 @@ const Homes = () => {
     } else {
       setFormValues({ ...formValues, [name]: value });
     }
-  }  
+  } 
 
-  // const [title, setTitle] = useState('')
-  // const [address, setAddress] = useState('')
-  // const [addedPhotos, setAddedPhotos] = useState([])
-  // const [photoLink, setPhotoLink] = useState('')
-  // const [description, setDescription] = useState('')
-  // const [perks, setPerks] = useState([])
-  // const [thingsToKnow, setThingsToKnow] = useState('')
-  // const [checkin, setCheckin] = useState('')
-  // const [checkout, setCheckout] = useState('')
-  // const [maxGuests, setMaxGuests] = useState(1)
-
-
+  const addPhotoByLink = async (e) => {
+    e.preventDefault()
+    const {addedPhotos, photoLink} = formValues
+    const {data: filename} = await axios.post('/upload-by-link', {link: formValues.photoLink})
+    setFormValues({...formValues, addedPhotos: [...addedPhotos, filename]})
+    // setFormValues({...formValues, [photoLink]: ''})
+  }
 
   return (
     <div>
@@ -79,7 +75,7 @@ const Homes = () => {
               placeholder='Add using a link'
               onChange={handleChange}
               />
-              <button className='bg-gray-200 px-2 my-1 rounded-xl font-medium'>Add&nbsp;photo</button>
+              <button onClick={addPhotoByLink} className='bg-gray-200 px-2 my-1 rounded-xl font-medium'>Add&nbsp;photo</button>
             </div>
             <div className='mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6' >
               <button className='flex gap-1 justify-center border border-gray-300 bg-transparent rounded-xl p-8 mb-2 text-lg text-gray-600'>

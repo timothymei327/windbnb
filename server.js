@@ -6,6 +6,7 @@ const db = require('./db')
 const PORT = process.env.PORT || 3001
 const { User } = require('./models')
 const cookieParser = require('cookie-parser')
+const imageDownloader = require('image-downloader')
 
 const app = express()
 
@@ -75,6 +76,16 @@ app.get('/account', (req, res) => {
 
 app.post('/logout', (req, res) => {
   res.cookie('token', '').json(true)
+})
+
+app.post('/upload-by-link', async (req, res) => {
+  const { link } = req.body
+  const newName = 'photo' + Date.now() + '.jpg'
+  await imageDownloader.image({
+    url: link,
+    dest: __dirname + '/uploads/' + newName
+  })
+  res.json(newName)
 })
 
 app.listen(PORT, () => {
