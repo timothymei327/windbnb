@@ -79,8 +79,14 @@ const Homes = () => {
               />
               <button onClick={addPhotoByLink} className='bg-gray-200 px-2 my-1 rounded-xl font-medium'>Add&nbsp;photo</button>
             </div>
-            <div className='mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6' >
-              <button className='flex gap-1 justify-center border border-gray-300 bg-transparent rounded-xl p-8 mb-2 text-lg text-gray-600'>
+            <div className='mt-2 grid grid-cols-3 gap-3 justify-between items-center' >
+            {formValues.addedPhotos.map(link => (
+              <img
+                src={axios.defaults.baseURL + '/uploads/' + link} 
+                className='rounded-xl border border-gray-300 h-28'
+              />
+            ))}
+              <button className='flex items-center justify-center border border-gray-300 bg-transparent rounded-xl p-10 mb-2 text-lg text-gray-600'>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
               </svg>
