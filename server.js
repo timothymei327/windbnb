@@ -7,10 +7,12 @@ const PORT = process.env.PORT || 3001
 const { User } = require('./models')
 const cookieParser = require('cookie-parser')
 const imageDownloader = require('image-downloader')
+const multer = require('multer')
+const fs = require('fs')
 
 const app = express()
-
 const bcryptSalt = bcrypt.genSaltSync(10)
+const photosMiddleware = multer({ dest: 'uploads' })
 
 app.use(express.json())
 app.use(cookieParser())
@@ -88,6 +90,8 @@ app.post('/upload-by-link', async (req, res) => {
   })
   res.json(newName)
 })
+
+app.post('/upload', photosMiddleware.array('photos', 100), (req, res) => {})
 
 app.listen(PORT, () => {
   console.log('Running at PORT: ', PORT)
