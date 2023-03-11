@@ -1,12 +1,13 @@
+import axios from 'axios'
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import Perks from '../components/Perks'
 import PhotosUploader from '../components/PhotosUploader'
 
 const Homes = () => {
   const {action} = useParams()
-
-  const [formValues, setFormValues] = useState({
+  let navigate = useNavigate()
+  const initialValues = {
     title: '',
     address: '',
     addedPhotos: [],
@@ -17,7 +18,9 @@ const Homes = () => {
     checkin: '',
     checkout: '',
     maxGuests: 1,
-  })
+  }
+
+  const [formValues, setFormValues] = useState(initialValues)
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
@@ -30,7 +33,13 @@ const Homes = () => {
       setFormValues({ ...formValues, [name]: value });
     }
   } 
-    
+
+  const addNewHome = async (e) => {
+    e.preventDefault()
+    await axios.post('/homes', formValues)
+    setFormValues(initialValues)
+    navigate('/account/homes')
+  }
 
   return (
     <div>
@@ -45,7 +54,7 @@ const Homes = () => {
       )}
       {action === 'new' && (
         <div>
-          <form className='sm:max-w-xl max-w-[80%] mx-auto py-5'>
+          <form className='sm:max-w-xl max-w-[80%] mx-auto py-5' onSubmit={addNewHome}>
             <label className='text-xl px-1 font-medium'>Title</label>
             <input
               name="title"
@@ -112,7 +121,7 @@ const Homes = () => {
                 />
               </div>
             </div>
-            <button className='primary'>Save</button>
+            <button className='primary' type='submit'>Save</button>
           </form>
         </div>
       )}

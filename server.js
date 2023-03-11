@@ -1,10 +1,11 @@
 const express = require('express')
 const cors = require('cors')
+const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const db = require('./db')
 const PORT = process.env.PORT || 3001
-const { User } = require('./models')
+const { User, Home } = require('./models')
 const cookieParser = require('cookie-parser')
 const imageDownloader = require('image-downloader')
 const multer = require('multer')
@@ -103,6 +104,40 @@ app.post('/upload', photosMiddleware.array('photos', 100), async (req, res) => {
     uploadedFiles.push(newPath.replace('uploads/', ''))
   }
   res.json(uploadedFiles)
+})
+
+app.post('/homes', (req, res) => {
+  mongoose.connect(process.env.MONGO_URL)
+  const { token } = req.cookies
+  const {
+    title,
+    address,
+    addedPhotos,
+    description,
+    price,
+    perks,
+    thingsToKnow,
+    checkin,
+    checkout,
+    maxGuests
+  } = req.body
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
+    if (err) throw err
+    const homesDoc = await Home.create({
+      owner: userData.id,
+      price,
+      title,
+      address,
+      photos: addedPhotos,
+      description,
+      perks,
+      thingsToKnow,
+      checkin,
+      checkout,
+      maxGuests
+    })
+    res.json(homesDoc)
+  })
 })
 
 app.listen(PORT, () => {
