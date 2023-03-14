@@ -1,12 +1,10 @@
-import axios from 'axios'
 import { useState } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom'
-import Perks from '../components/Perks'
-import PhotosUploader from '../components/PhotosUploader'
+import { Link, useParams } from 'react-router-dom'
+import HomesForm from './HomesForm'
 
 const Homes = () => {
   const {action} = useParams()
-  let navigate = useNavigate()
+
   const initialValues = {
     title: '',
     address: '',
@@ -32,13 +30,6 @@ const Homes = () => {
     } else {
       setFormValues({ ...formValues, [name]: value });
     }
-  } 
-
-  const addNewHome = async (e) => {
-    e.preventDefault()
-    await axios.post('/homes', formValues)
-    setFormValues(initialValues)
-    navigate('/account/homes')
   }
 
   return (
@@ -52,79 +43,7 @@ const Homes = () => {
             Add new Windbnb</Link>
         </div>
       )}
-      {action === 'new' && (
-        <div>
-          <form className='sm:max-w-xl max-w-[80%] mx-auto py-5' onSubmit={addNewHome}>
-            <label className='text-xl px-1 font-medium'>Title</label>
-            <input
-              name="title"
-              type="text"
-              value={formValues.title}
-              placeholder='Stylish and Spacious Downtown Apartment'
-              onChange={handleChange}
-            />
-            <label className='text-xl px-1 font-medium'>Address</label>
-            <input
-            name="address"
-            type="text"
-            value={formValues.address}
-            placeholder='123 Main St, Anytown, USA'
-            onChange={handleChange}
-            />
-            <PhotosUploader formValues={formValues} setFormValues={setFormValues} handleChange={handleChange}/>
-            <label className='text-xl px-1 font-medium'>Description</label>
-            <textarea
-            name="description"
-            type="text"
-            value={formValues.description}
-            rows="5"
-            placeholder='Description of your home' 
-            onChange={handleChange}
-            />
-            <Perks name="perks" perks={formValues.perks} handleChange={handleChange}/>
-            <label className='text-xl px-1 font-medium'>Things to Know</label>
-            <textarea
-            name="thingsToKnow"
-            value={formValues.thingsToKnow}
-            rows="5"
-            placeholder='House rules, etc...'
-            onChange={handleChange}
-            />
-            <label className='text-xl px-1 font-medium'>Check-in & Check-out Times</label>
-            <div className='flex px-1 my-2'>
-              <div className='px-2 gap-1'>
-                <label>Check-in</label>
-                <input
-                name="checkin"
-                type="time"
-                value={formValues.checkin}
-                onChange={handleChange}
-                />
-              </div>
-              <div className='px-2 gap-1'>
-                <label>Check-out</label>
-                <input
-                name="checkout"
-                type="time"
-                value={formValues.checkout}
-                onChange={handleChange}
-                />
-              </div>
-              <div className='px-2 gap-1'>
-                <label>Max Guests</label>
-                <input
-                name="maxGuests"
-                type="number"
-                value={formValues.maxGuests}
-                placeholder='5'
-                onChange={handleChange}
-                />
-              </div>
-            </div>
-            <button className='primary' type='submit'>Save</button>
-          </form>
-        </div>
-      )}
+      <HomesForm formValues={formValues} setFormValues={setFormValues} handleChange={handleChange} initialValues={initialValues}/>
     </div>
   )
 }
