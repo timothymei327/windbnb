@@ -6,7 +6,7 @@ import Perks from "../components/Perks"
 const HomesForm = ({formValues, setFormValues, handleChange, initialValues}) => {
   const {action} = useParams()
   let navigate = useNavigate()
-  
+
   const addNewHome = async (e) => {
     e.preventDefault()
     await axios.post('/homes', formValues)
@@ -17,7 +17,6 @@ const HomesForm = ({formValues, setFormValues, handleChange, initialValues}) => 
   const handleInvalid = (e) => {
       e.target.className = 'placeholder-red-400 border border-red-500'
   }
-
 
   return (
     <div>
@@ -74,7 +73,6 @@ const HomesForm = ({formValues, setFormValues, handleChange, initialValues}) => 
                 <input
                 name="checkin"
                 type="time"
-  
                 value={formValues.checkin}
                 onChange={handleChange}
                 onInvalid={handleInvalid}
@@ -86,7 +84,6 @@ const HomesForm = ({formValues, setFormValues, handleChange, initialValues}) => 
                 <input
                 name="checkout"
                 type="time"
-  
                 value={formValues.checkout}
                 onChange={handleChange}
                 onInvalid={handleInvalid}
@@ -101,8 +98,6 @@ const HomesForm = ({formValues, setFormValues, handleChange, initialValues}) => 
                 value={formValues.maxGuests}
                 placeholder='5'
                 onChange={handleChange}
-                onInvalid={handleInvalid}
-                required
                 />
               </div>
             </div>

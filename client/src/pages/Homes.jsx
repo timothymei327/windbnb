@@ -25,10 +25,13 @@ const Homes = () => {
     if (e.target.type === 'checkbox') {
       const updatedPerks = checked 
         ? [...formValues.perks, value]
-        : formValues.perks.filter(perk => perk !== value);
-      setFormValues({ ...formValues, [name]: updatedPerks });
+        : formValues.perks.filter(perk => perk !== value)
+      setFormValues({ ...formValues, [name]: updatedPerks })
     } else {
-      setFormValues({ ...formValues, [name]: value });
+      if (e.target.className === 'placeholder-red-400 border border-red-500' && e.target.value.length > 0){
+        e.target.className = ''
+      }
+      setFormValues({ ...formValues, [name]: value })
     }
   }
 
