@@ -1,11 +1,42 @@
-import { useParams, useNavigate } from "react-router-dom"
+import { useState } from 'react'
+import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import PhotosUploader from "../components/PhotosUploader"
 import Perks from "../components/Perks"
+import AccountNav from '../components/AccountNav'
 
-const HomesForm = ({formValues, setFormValues, handleChange, initialValues}) => {
-  const {action} = useParams()
+const HomesForm = () => {
   let navigate = useNavigate()
+
+  const initialValues = {
+    title: '',
+    address: '',
+    addedPhotos: [],
+    photoLink: '',
+    description: '',
+    perks: [],
+    thingsToKnow: '',
+    checkin: '',
+    checkout: '',
+    maxGuests: 1,
+  }
+
+  const [formValues, setFormValues] = useState(initialValues)
+
+  const handleChange = (e) => {
+    const { name, value, checked } = e.target;
+    if (e.target.type === 'checkbox') {
+      const updatedPerks = checked 
+        ? [...formValues.perks, value]
+        : formValues.perks.filter(perk => perk !== value)
+      setFormValues({ ...formValues, [name]: updatedPerks })
+    } else {
+      if (e.target.className === 'placeholder-red-400 border border-red-500' && e.target.value.length > 0){
+        e.target.className = ''
+      }
+      setFormValues({ ...formValues, [name]: value })
+    }
+  }
 
   const addNewHome = async (e) => {
     e.preventDefault()
@@ -20,7 +51,7 @@ const HomesForm = ({formValues, setFormValues, handleChange, initialValues}) => 
 
   return (
     <div>
-      {action === 'new' && (
+      <AccountNav />
         <div>
           <form className='sm:max-w-xl max-w-[80%] mx-auto py-5' onSubmit={addNewHome}>
             <label className='text-xl px-1 font-medium'>Title</label>
@@ -104,7 +135,6 @@ const HomesForm = ({formValues, setFormValues, handleChange, initialValues}) => 
             <button className='primary' type='submit'>Save</button>
           </form>
         </div>
-      )}
     </div>
   )
 }
