@@ -1,7 +1,16 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 import AccountNav from '../components/AccountNav'
 
 const Homes = () => {
+  const [houses, setHouses] = useState([])
+
+  useEffect(() => {
+    axios.get('/homes').then(({data}) => {
+      setHouses(data)
+    })
+  }, [])
 
   return (
     <div>
@@ -12,6 +21,21 @@ const Homes = () => {
             <path fillRule="evenodd" d="M12 5.25a.75.75 0 01.75.75v5.25H18a.75.75 0 010 1.5h-5.25V18a.75.75 0 01-1.5 0v-5.25H6a.75.75 0 010-1.5h5.25V6a.75.75 0 01.75-.75z" clipRule="evenodd" />
           </svg>
             Add new Windbnb</Link>
+        </div>
+        <div className='mt-12'>
+        {houses.length > 0 && houses.map(house => (
+          <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden md:max-w-2xl">
+            <div className="md:flex">
+              <div className="md:shrink-0">
+                <img className="h-48 w-full object-cover md:h-full md:w-48" src={axios.defaults.baseURL + '/uploads/' + house.photos[0]} alt="house" />
+              </div>
+              <div className="p-8">
+                <div className="uppercase tracking-wide text-sm text-primary font-semibold">{house.title}</div>
+                <p className="mt-2 text-slate-600">{house.description.substring(0,200)}</p>
+              </div>
+            </div>
+          </div>
+        ))}
         </div>
     </div>
   )

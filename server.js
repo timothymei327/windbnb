@@ -140,6 +140,14 @@ app.post('/homes', (req, res) => {
   })
 })
 
+app.get('/homes', (req, res) => {
+  const { token } = req.cookies
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
+    const { id } = userData
+    res.json(await Home.find({ owner: id }))
+  })
+})
+
 app.listen(PORT, () => {
   console.log('Running at PORT: ', PORT)
 })

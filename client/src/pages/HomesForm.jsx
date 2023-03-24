@@ -98,7 +98,7 @@ const HomesForm = () => {
             required
             />
             <label className='text-xl px-1 font-medium'>Check-in & Check-out Times</label>
-            <div className='flex px-1 my-2'>
+            <div className='flex flex-wrap px-1 my-2'>
               <div className='px-2 gap-1'>
                 <label>Check-in</label>
                 <input
@@ -127,7 +127,7 @@ const HomesForm = () => {
                 name="maxGuests"
                 type="number"
                 value={formValues.maxGuests}
-                placeholder='5'
+                placeholder='1'
                 onChange={handleChange}
                 />
               </div>
