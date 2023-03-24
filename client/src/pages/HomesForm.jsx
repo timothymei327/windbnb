@@ -74,7 +74,6 @@ const HomesForm = () => {
         checkOut: data.checkOut,
         maxGuests: data.maxGuests,
       })
-      console.log(data)
     })
   }, [id])
 
