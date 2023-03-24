@@ -178,6 +178,10 @@ app.put('/homes', async (req, res) => {
   })
 })
 
+app.get('/listings', async (req, res) => {
+  res.json(await Home.find())
+})
+
 app.listen(PORT, () => {
   console.log('Running at PORT: ', PORT)
 })
