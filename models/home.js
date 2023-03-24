@@ -10,7 +10,8 @@ const homeSchema = new Schema({
   thingsToKnow: String,
   checkIn: String,
   checkOut: String,
-  maxGuests: Number
+  maxGuests: Number,
+  price: Number
 })
 
 module.exports = homeSchema

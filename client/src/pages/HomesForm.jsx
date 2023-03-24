@@ -20,6 +20,7 @@ const HomesForm = () => {
     checkIn: '',
     checkOut: '',
     maxGuests: 1,
+    price: 100,
   }
 
   const [formValues, setFormValues] = useState(initialValues)
@@ -73,6 +74,7 @@ const HomesForm = () => {
         checkIn: data.checkIn,
         checkOut: data.checkOut,
         maxGuests: data.maxGuests,
+        price: data.price
       })
     })
   }, [id])
@@ -157,6 +159,17 @@ const HomesForm = () => {
                 value={formValues.maxGuests}
                 placeholder='1'
                 onChange={handleChange}
+                />
+              </div>
+              <div className='px-2 gap-1'>
+                <label>Price Per Night ($)</label>
+                <input
+                name="price"
+                type="number"
+                value={formValues.price}
+                placeholder='100'
+                onChange={handleChange}
+                required
                 />
               </div>
             </div>

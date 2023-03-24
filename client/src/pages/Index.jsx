@@ -14,11 +14,14 @@ const Index = () => {
         {listings.length > 0 && listings.map(listing => (
           <Link to={'/listings/' + listing._id} key={listing._id}>
             <div className="max-w-sm rounded-lg overflow-hidden shadow-xl h-80">
-              <img className="w-full h-40 object-cover" src={axios.defaults.baseURL + '/uploads/' + listing.photos[0]} alt="listing" />
-              <div className="p-4">
-                <div className="font-semibold text-lg mb-2">{listing.title}</div>
-                <p className="text-gray-700 text-base">
+              <img className="w-full h-44 object-cover" src={axios.defaults.baseURL + '/uploads/' + listing.photos[0]} alt="listing" />
+              <div className="p-4 font-light">
+                <div className="font-semibold text-lg mb-1 truncate">{listing.title}</div>
+                <p className="text-gray-500 text-base truncate">
                   {listing.address}
+                </p>
+                <p className="text-gray-800 mt-1 text-base">
+                  <span className="font-semibold text-black">${listing.price}</span> per night
                 </p>
               </div>
             </div>

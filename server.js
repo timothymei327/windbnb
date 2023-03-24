@@ -127,18 +127,17 @@ app.post('/homes', (req, res) => {
     address,
     photos,
     description,
-    price,
     perks,
     thingsToKnow,
     checkIn,
     checkOut,
-    maxGuests
+    maxGuests,
+    price
   } = req.body
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
     if (err) throw err
     const createHome = await Home.create({
       owner: userData.id,
-      price,
       title,
       address,
       photos,
@@ -147,7 +146,8 @@ app.post('/homes', (req, res) => {
       thingsToKnow,
       checkIn,
       checkOut,
-      maxGuests
+      maxGuests,
+      price
     })
     res.json(createHome)
   })
