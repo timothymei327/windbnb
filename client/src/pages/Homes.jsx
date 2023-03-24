@@ -24,7 +24,7 @@ const Homes = () => {
         </div>
         <div className='mt-10'>
         {houses.length > 0 && houses.map(house => (
-          <Link to={'/account/homes/' + house._id}>
+          <Link to={'/account/homes/' + house._id} key={house._id}>
             <div className="max-w-md mx-auto bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden md:max-w-2xl mt-5">
               <div className="md:flex">
                 <div className="md:shrink-0">

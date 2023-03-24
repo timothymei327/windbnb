@@ -106,6 +106,19 @@ app.post('/upload', photosMiddleware.array('photos', 100), async (req, res) => {
   res.json(uploadedFiles)
 })
 
+app.delete('/photos', (req, res) => {
+  fs.unlink(__dirname + '/uploads/' + req.body.fileName, (err) => {
+    if (err) {
+      res.status(500).send({
+        message: 'Could not delete the file. ' + err
+      })
+    }
+    res.status(200).send({
+      message: 'File is deleted.'
+    })
+  })
+})
+
 app.post('/homes', (req, res) => {
   mongoose.connect(process.env.MONGO_URL)
   const { token } = req.cookies
