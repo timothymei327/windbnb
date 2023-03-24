@@ -23,6 +23,7 @@ function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/account/homes" element={<Homes />} />
           <Route path="/account/homes/new" element={<HomesForm />} />
+          <Route path="/account/homes/:id" element={<HomesForm />} />
         </Route>
       </Routes>
     </UserContextProvider>

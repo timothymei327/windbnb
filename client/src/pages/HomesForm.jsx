@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from "react-router-dom"
 import axios from 'axios'
 import PhotosUploader from "../components/PhotosUploader"
 import Perks from "../components/Perks"
@@ -7,17 +7,18 @@ import AccountNav from '../components/AccountNav'
 
 const HomesForm = () => {
   let navigate = useNavigate()
+  const {id} = useParams()
 
   const initialValues = {
     title: '',
     address: '',
-    addedPhotos: [],
+    photos: [],
     photoLink: '',
     description: '',
     perks: [],
     thingsToKnow: '',
-    checkin: '',
-    checkout: '',
+    checkIn: '',
+    checkOut: '',
     maxGuests: 1,
   }
 
@@ -38,22 +39,50 @@ const HomesForm = () => {
     }
   }
 
-  const addNewHome = async (e) => {
+  const saveHome = async (e) => {
     e.preventDefault()
-    await axios.post('/homes', formValues)
-    setFormValues(initialValues)
-    navigate('/account/homes')
+    if (id) {
+      await axios.put('/homes', {id, formValues})
+      setFormValues(initialValues)
+      navigate('/account/homes')
+    } else {
+      await axios.post('/homes', formValues)
+      setFormValues(initialValues)
+      navigate('/account/homes')
+    }
   }
 
   const handleInvalid = (e) => {
       e.target.className = 'placeholder-red-400 border border-red-500'
   }
 
+  useEffect(() => {
+    if (!id){
+      return
+    }
+    axios.get('/homes/' + id).then(res => {
+      const {data} = res
+      setFormValues({
+        title: data.title,
+        address: data.address,
+        photos: data.photos,
+        photoLink: '',
+        description: data.description,
+        perks: [...data.perks],
+        thingsToKnow: data.thingsToKnow,
+        checkIn: data.checkIn,
+        checkOut: data.checkOut,
+        maxGuests: data.maxGuests,
+      })
+      console.log(data)
+    })
+  }, [id])
+
   return (
     <div>
       <AccountNav />
         <div>
-          <form className='sm:max-w-xl max-w-[80%] mx-auto py-5' onSubmit={addNewHome}>
+          <form className='sm:max-w-xl max-w-[80%] mx-auto py-5' onSubmit={saveHome}>
             <label className='text-xl px-1 font-medium'>Title</label>
             <input
               name="title"
@@ -102,9 +131,9 @@ const HomesForm = () => {
               <div className='px-2 gap-1'>
                 <label>Check-in</label>
                 <input
-                name="checkin"
+                name="checkIn"
                 type="time"
-                value={formValues.checkin}
+                value={formValues.checkIn}
                 onChange={handleChange}
                 onInvalid={handleInvalid}
                 required
@@ -113,9 +142,9 @@ const HomesForm = () => {
               <div className='px-2 gap-1'>
                 <label>Check-out</label>
                 <input
-                name="checkout"
+                name="checkOut"
                 type="time"
-                value={formValues.checkout}
+                value={formValues.checkOut}
                 onChange={handleChange}
                 onInvalid={handleInvalid}
                 required

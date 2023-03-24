@@ -112,31 +112,31 @@ app.post('/homes', (req, res) => {
   const {
     title,
     address,
-    addedPhotos,
+    photos,
     description,
     price,
     perks,
     thingsToKnow,
-    checkin,
-    checkout,
+    checkIn,
+    checkOut,
     maxGuests
   } = req.body
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
     if (err) throw err
-    const homesDoc = await Home.create({
+    const createHome = await Home.create({
       owner: userData.id,
       price,
       title,
       address,
-      photos: addedPhotos,
+      photos,
       description,
       perks,
       thingsToKnow,
-      checkin,
-      checkout,
+      checkIn,
+      checkOut,
       maxGuests
     })
-    res.json(homesDoc)
+    res.json(createHome)
   })
 })
 
@@ -145,6 +145,23 @@ app.get('/homes', (req, res) => {
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
     const { id } = userData
     res.json(await Home.find({ owner: id }))
+  })
+})
+
+app.get('/homes/:id', async (req, res) => {
+  const { id } = req.params
+  res.json(await Home.findById(id))
+})
+
+app.put('/homes', async (req, res) => {
+  const { token } = req.cookies
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
+    if (err) throw err
+    const modifyHome = await Home.findByIdAndUpdate(
+      req.body.id,
+      req.body.formValues
+    )
+    res.json(modifyHome)
   })
 })
 

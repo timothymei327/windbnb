@@ -3,13 +3,13 @@ import axios from 'axios'
 const PhotosUploader = ({formValues, setFormValues, handleChange}) => {
   const addPhotoByLink = async (e) => {
     e.preventDefault()
-    const {addedPhotos, photoLink} = formValues
+    const {photos, photoLink} = formValues
     const {data: filename} = await axios.post('/upload-by-link', {link: photoLink})
-    setFormValues({...formValues, addedPhotos: [...addedPhotos, filename], photoLink: ''})
+    setFormValues({...formValues, photos: [...photos, filename], photoLink: ''})
   }
 
   const uploadPhoto = async (e) => {
-    const {addedPhotos} = formValues
+    const {photos} = formValues
     const files = e.target.files;
     const data = new FormData();
     for (let i = 0; i < files.length; i++) {
@@ -20,7 +20,7 @@ const PhotosUploader = ({formValues, setFormValues, handleChange}) => {
         headers: {'Content-type': 'multipart/form-data'}
       });
       const { data: filenames } = response;
-      setFormValues({...formValues, addedPhotos: [...addedPhotos, ...filenames]})
+      setFormValues({...formValues, photos: [...photos, ...filenames]})
     } catch (error) {
       console.error(error);
     }
@@ -40,7 +40,7 @@ const PhotosUploader = ({formValues, setFormValues, handleChange}) => {
           <button onClick={addPhotoByLink} className='bg-gray-200 px-2 my-1 rounded-xl font-medium'>Add&nbsp;photo</button>
         </div>
         <div className='mt-2 grid grid-cols-3 gap-3 justify-between items-center'>
-        {formValues.addedPhotos.map(link => (
+        {formValues.photos.map(link => (
           <div className='flex h-32' key={link}>
             <img
               src={axios.defaults.baseURL + '/uploads/' + link} 

@@ -22,19 +22,21 @@ const Homes = () => {
           </svg>
             Add new Windbnb</Link>
         </div>
-        <div className='mt-12'>
+        <div className='mt-10'>
         {houses.length > 0 && houses.map(house => (
-          <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden md:max-w-2xl">
-            <div className="md:flex">
-              <div className="md:shrink-0">
-                <img className="h-48 w-full object-cover md:h-full md:w-48" src={axios.defaults.baseURL + '/uploads/' + house.photos[0]} alt="house" />
-              </div>
-              <div className="p-8">
-                <div className="uppercase tracking-wide text-sm text-primary font-semibold">{house.title}</div>
-                <p className="mt-2 text-slate-600">{house.description.substring(0,200)}</p>
+          <Link to={'/account/homes/' + house._id}>
+            <div className="max-w-md mx-auto bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden md:max-w-2xl mt-5">
+              <div className="md:flex">
+                <div className="md:shrink-0">
+                  <img className="h-48 w-full object-cover md:h-full md:w-48" src={axios.defaults.baseURL + '/uploads/' + house.photos[0]} alt="house" />
+                </div>
+                <div className="p-8">
+                  <div className="uppercase tracking-wide text-sm text-primary font-semibold">{house.title}</div>
+                  <p className="mt-2 text-slate-600">{house.description.length > 200 ? house.description.substring(0,200) + '...' : house.description}</p>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
         </div>
     </div>
