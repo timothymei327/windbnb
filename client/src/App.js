@@ -8,6 +8,7 @@ import Signup from './pages/Signup'
 import Account from './pages/Account'
 import Homes from './pages/Homes'
 import HomesForm from './pages/HomesForm'
+import ListingDetails from './pages/ListingDetails'
 
 axios.defaults.baseURL = 'http://localhost:3001'
 axios.defaults.withCredentials = true
@@ -24,6 +25,7 @@ function App() {
           <Route path="/account/homes" element={<Homes />} />
           <Route path="/account/homes/new" element={<HomesForm />} />
           <Route path="/account/homes/:id" element={<HomesForm />} />
+          <Route path="/listing/:id" element={<ListingDetails />} />
         </Route>
       </Routes>
     </UserContextProvider>

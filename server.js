@@ -182,6 +182,11 @@ app.get('/listings', async (req, res) => {
   res.json(await Home.find())
 })
 
+app.get('/listings/:id', async (req, res) => {
+  const { id } = req.params
+  res.json(await Home.findById(id))
+})
+
 app.listen(PORT, () => {
   console.log('Running at PORT: ', PORT)
 })

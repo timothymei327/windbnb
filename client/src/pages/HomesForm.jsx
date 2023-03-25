@@ -129,7 +129,7 @@ const HomesForm = () => {
             />
             <label className='text-xl px-1 font-medium'>Check-in & Check-out Times</label>
             <div className='flex flex-wrap px-1 my-2'>
-              <div className='px-2 gap-1'>
+              <div className='px-2 gap-1 w-60'>
                 <label>Check-in</label>
                 <input
                 name="checkIn"
@@ -140,7 +140,7 @@ const HomesForm = () => {
                 required
                 />
               </div>
-              <div className='px-2 gap-1'>
+              <div className='px-2 gap-1 w-60'>
                 <label>Check-out</label>
                 <input
                 name="checkOut"
@@ -151,7 +151,7 @@ const HomesForm = () => {
                 required
                 />
               </div>
-              <div className='px-2 gap-1'>
+              <div className='px-2 gap-1 w-60'>
                 <label>Max Guests</label>
                 <input
                 name="maxGuests"
@@ -159,9 +159,10 @@ const HomesForm = () => {
                 value={formValues.maxGuests}
                 placeholder='1'
                 onChange={handleChange}
+                required
                 />
               </div>
-              <div className='px-2 gap-1'>
+              <div className='px-2 gap-1 w-60'>
                 <label>Price Per Night ($)</label>
                 <input
                 name="price"
