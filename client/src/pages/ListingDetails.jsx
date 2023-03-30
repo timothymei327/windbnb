@@ -2,10 +2,9 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import axios from "axios"
 
-const ListingDetails = () => {
+const ListingDetails = ({showAllPhotos, setShowAllPhotos}) => {
   const {id} = useParams()
   const [listing, setListing] = useState(null)
-  const [showAllPhotos, setShowAllPhotos] = useState(false)
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpanded = () => {
@@ -24,11 +23,6 @@ const ListingDetails = () => {
   if (showAllPhotos) {
     return (
       <div>
-        <button onClick={() => setShowAllPhotos(false)} className="fixed z-50 border-2 border-black bg-white rounded-full p-1 mx-auto left-5 top-28">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-        </svg>
-        </button>
         <div className="absolute top-0 md:top-7 left-1/2 transform -translate-x-1/2 py-[23%] sm:py-[6%] w-full max-w-3xl grid grid-cols-2 gap-2">
           {listing?.photos.length > 0 && listing.photos.map(photo => (
             <img 

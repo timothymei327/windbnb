@@ -1,9 +1,32 @@
+import axios from 'axios'
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from './UserContext'
 
-const Header = () => {
+const Header = ({FRONTENDURL, showAllPhotos, setShowAllPhotos}) => {
   const { user } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  const handleBack = () => {
+    if (showAllPhotos) {
+      setShowAllPhotos(false)
+    } else {
+      navigate(-1)
+    }
+  }
+
+  if (window.location.href.includes(FRONTENDURL + '/listing') && showAllPhotos) {
+    return (
+      <div className='fixed z-50 w-screen top-[0px] p-5 bg-white border-b'>
+      <button onClick={() => {handleBack()}} className="bg-white rounded-full shadow drop-shadow-md p-2 mx-auto">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+      </svg>
+      </button>
+    </div>
+    )
+  }
+
   return(
     <div>
     <header className="fixed z-50 w-screen top-[0px] p-5 border-b bg-white flex justify-center sm:justify-between">
