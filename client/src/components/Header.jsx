@@ -4,10 +4,9 @@ import { UserContext } from './UserContext'
 
 const Header = () => {
   const { user } = useContext(UserContext)
-
   return(
     <div>
-    <header className="fixed w-screen top-[0px] p-5 border-b bg-white flex justify-center sm:justify-between">
+    <header className="fixed z-50 w-screen top-[0px] p-5 border-b bg-white flex justify-center sm:justify-between">
       <Link to='/index' className="flex items-center gap-2 hidden sm:flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
