@@ -6,8 +6,8 @@ function Footer() {
   const { user } = useContext(UserContext)
 
   return (
-    <div className="flex sm:hidden fixed bottom-0 w-full bg-white text-gray-400">
-      <div className="mx-auto py-8 gap-5 flex items-center justify-center">
+    <div className="flex sm:hidden fixed bottom-0 w-full bg-white text-gray-400 border-t border-gray-200">
+      <div className="mx-auto py-6 gap-5 flex items-center justify-center">
       <Link className='text-xs' to={'/index'}>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="w-6 h-6 mx-auto">
         <path strokeLinecap="round" strokeLinejoin="miter-clip" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />

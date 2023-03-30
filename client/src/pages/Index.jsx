@@ -10,7 +10,7 @@ const Index = () => {
     })
   }, [])
   return(
-        <div className='my-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-y-7 w-screen justify-items-center'>
+        <div className='py-10 px-5 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-y-7 w-screen justify-items-center'>
         {listings.length > 0 && listings.map(listing => (
           <Link to={'/listing/' + listing._id} key={listing._id}>
             <div className="max-w-xs rounded-lg overflow-hidden shadow-xl h-84">
