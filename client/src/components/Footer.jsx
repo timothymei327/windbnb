@@ -1,12 +1,34 @@
-import { Link } from 'react-router-dom'
-import { useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom'
+import { useContext, useState, useEffect } from 'react';
 import { UserContext } from './UserContext';
 
-function Footer() {
+function Footer({FRONTENDURL}) {
   const { user } = useContext(UserContext)
+  const location = useLocation()
+  const [currentLocation, setCurrentLocation] = useState('');
 
-  return (
-    <div className="flex sm:hidden fixed bottom-0 w-full bg-white text-gray-400 border-t border-gray-200">
+  useEffect(() => {
+    setCurrentLocation(window.location.href);
+  }, [location]);
+
+  if (currentLocation.includes(FRONTENDURL + '/listing') && window.screen.width < 640) {
+    return (
+      <div className="flex sm:hidden fixed bottom-0 w-full bg-white border-t border-gray-200">
+        <div className="py-6 px-4 flex w-full items-center justify-between">
+          <div className="text-left">
+            <b className="text-black font-bold">$76</b> night
+            <br />
+            <span className='underline underline-offset-2'>April 10-15</span>
+          </div>
+          <div>
+            <button className='border border-primary bg-primary text-white px-4 py-2 rounded-lg'>Reserve</button>
+          </div>
+        </div>
+      </div>
+    )
+  } else {
+    return (
+      <div className="flex sm:hidden fixed bottom-0 w-full bg-white text-gray-400 border-t border-gray-200">
       <div className="mx-auto py-6 gap-5 flex items-center justify-center">
       <Link className='text-xs' to={'/index'}>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="w-6 h-6 mx-auto">
@@ -23,6 +45,7 @@ function Footer() {
       </div>
     </div>
   );
+}
 }
 
 export default Footer;
