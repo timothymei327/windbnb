@@ -16,7 +16,7 @@ const ListingDetails = () => {
   if (!listing) return 'Loading...'
 
   return (
-    <div className="w-screen">
+    <div className="w-screen p-5">
     <h2 className="text-3xl pb-3 font-extrabold">
         {listing.title}
         </h2>
