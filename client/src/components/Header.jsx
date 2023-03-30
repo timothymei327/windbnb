@@ -7,8 +7,8 @@ const Header = () => {
 
   return(
     <div>
-    <header className="flex justify-between">
-      <Link to='/index' className="flex items-center gap-2">
+    <header className="fixed w-screen top-[0px] p-5 border-b bg-white flex justify-center sm:justify-between">
+      <Link to='/index' className="flex items-center gap-2 hidden sm:flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -23,7 +23,7 @@ const Header = () => {
             d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
           />
         </svg>
-        <span className="font-extrabold text-primary text-2xl hidden sm:flex">windbnb</span>
+        <span className="font-extrabold text-primary text-2xl">windbnb</span>
       </Link>
       <div className="flex items-center text-sm gap-3 border border-gray-300 rounded-full py-2 px-6 shadow-md shadow-gray-300">
         <div className="font-medium">Anywhere</div>
@@ -48,7 +48,7 @@ const Header = () => {
           </svg>
         </button>
       </div>
-      <Link to={user ? '/account' : '/login'} className="flex items-center sm:gap-3 gap-1 border border-gray-300 rounded-full py-2 px-3">
+      <Link to={user ? '/account' : '/login'} className="flex items-center sm:gap-3 gap-1 border border-gray-300 rounded-full py-2 px-3 hidden sm:flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
