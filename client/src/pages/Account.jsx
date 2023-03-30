@@ -23,7 +23,7 @@ const Account = () => {
 
   const logout = async () => {
     await axios.post('/logout')
-    navigate('/')
+    navigate('/login')
     setUser(null)
   }
 
