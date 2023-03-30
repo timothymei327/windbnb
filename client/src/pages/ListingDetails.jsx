@@ -6,6 +6,11 @@ const ListingDetails = () => {
   const {id} = useParams()
   const [listing, setListing] = useState(null)
   const [showAllPhotos, setShowAllPhotos] = useState(false)
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+  };
 
   useEffect(() => {
     if (!id) {return}
@@ -59,6 +64,27 @@ const ListingDetails = () => {
               <span className="hidden sm:inline-block">Show all photos</span>
             </button>
           </div>
+        </div>
+        <div className="w-full sm:w-2/3 ">
+          <p className="font-thin text-sm text-justify py-4 border-b border-gray-300">
+            {expanded ? listing.description : listing.description.substring(0, 300) + '... '}
+            <span
+              className="font-black text-md underline underline-offset-2 flex items-start gap-1 pt-3 cursor-pointer"
+              onClick={toggleExpanded}
+            >
+              {expanded ? 'Show less' : 'Show more'}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+                className={`w-6 h-6 transform ${expanded ? 'rotate-[270deg]' : ''}`}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </span>
+          </p>
         </div>
       </div>
   )
