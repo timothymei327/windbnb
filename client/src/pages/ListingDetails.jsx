@@ -2,14 +2,23 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import axios from "axios"
 
-const ListingDetails = ({showAllPhotos, setShowAllPhotos}) => {
+const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) => {
   const {id} = useParams()
-  const [listing, setListing] = useState(null)
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState({
+    description: false,
+    thingsToKnow: false
+  });
 
-  const toggleExpanded = () => {
-    setExpanded(!expanded);
-  };
+  const toggleExpanded = (e) => {
+    switch(e.target.name) {
+      case 'description':
+        setExpanded({...expanded, description: !expanded.description});
+        break
+      case 'thingsToKnow':
+        setExpanded({...expanded, thingsToKnow: !expanded.thingsToKnow});
+        break
+    }
+  }
 
   useEffect(() => {
     if (!id) {return}
@@ -61,24 +70,49 @@ const ListingDetails = ({showAllPhotos, setShowAllPhotos}) => {
         </div>
         <div className="grid grid-cols-[3fr_2fr]">
           <div className="col-span-2 sm:col-span-1">
-            <p className="font-light text-gray-600 text-sm text-justify py-4 border-b gap-1 border-gray-300">
-              {expanded ? listing.description : listing.description.substring(0, 300) + '... '}
-              <span
+            <h2 className="pt-2 font-bold text-lg">Description</h2>
+            <p className="font-light text-gray-600 text-sm text-justify pb-4 border-b border-gray-300">
+              {expanded.description ? listing.description : listing.description.substring(0, 300) + '... '}
+              <button
                 className="font-bold text-black w-fit text-md underline underline-offset-2 flex items-start pt-3 cursor-pointer"
+                name='description'
                 onClick={toggleExpanded}
               >
-                {expanded ? 'Show less' : 'Show more'}
+                {expanded.description ? 'Show less' : 'Show more'}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 20 24"
                   strokeWidth={2.5}
                   stroke="currentColor"
-                  className={`w-6 h-6 transform ${expanded ? 'rotate-[270deg]' : ''}`}
+                  className={`w-6 h-6 transform ${expanded.description ? 'rotate-[270deg]' : ''}`}
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
-              </span>
+              </button>
+            </p>
+          </div>
+          <div className="col-span-2 sm:col-span-1 row-start-2">
+            <p className="font-light text-gray-600 text-sm text-justify py-4 border-b gap-1 border-gray-300">
+              {expanded.thingsToKnow ? listing.thingsToKnow : listing.thingsToKnow.substring(0, 300) + '... '}
+            { listing.thingsToKnow.length > 300 &&
+              <button
+                className="font-bold text-black w-fit text-md underline underline-offset-2 flex items-start pt-3 cursor-pointer"
+                name='thingsToKnow'
+                onClick={toggleExpanded}
+              >
+                {expanded.thingsToKnow ? 'Show less' : 'Show more'}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
+                  className={`w-6 h-6 transform ${expanded.thingsToKnow ? 'rotate-[270deg]' : ''}`}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </button>}
             </p>
           </div>
         </div>

@@ -6,19 +6,17 @@ const Header = ({FRONTENDURL, showAllPhotos, setShowAllPhotos}) => {
   const { user } = useContext(UserContext)
   const navigate = useNavigate()
   const location = useLocation()
-  const [currentLocation, setCurrentLocation] = useState('');
   const [screenSize, setScreenSize] = useState('');
   
   useEffect(() => {
     const handleResize = () => {
-      setCurrentLocation(window.location.href);
       setScreenSize(window.innerWidth);
     }
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [location]);
+  }, []);
 
   const handleBack = () => {
     if (showAllPhotos) {
@@ -28,7 +26,7 @@ const Header = ({FRONTENDURL, showAllPhotos, setShowAllPhotos}) => {
     }
   }
 
-  if (currentLocation.includes(FRONTENDURL + '/listing') && screenSize < 640 || showAllPhotos) {
+  if (window.location.href.includes(FRONTENDURL + '/listing') && screenSize < 640 || showAllPhotos) {
     return (
       <div className='fixed z-50 w-screen top-[0px] p-5 bg-white border-b'>
       <button onClick={() => {handleBack()}} className="bg-white rounded-full shadow drop-shadow-md p-2 mx-auto">

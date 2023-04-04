@@ -15,6 +15,7 @@ axios.defaults.baseURL = 'http://localhost:3001'
 axios.defaults.withCredentials = true
 
 function App() {
+  const [listing, setListing] = useState(null)
   const [showAllPhotos, setShowAllPhotos] = useState(false)
   const FRONTENDURL = 'http://localhost:3000'
 
@@ -26,6 +27,8 @@ function App() {
           element={
             <Layout
               FRONTENDURL={FRONTENDURL}
+              listing={listing}
+              setListing={setListing}
               showAllPhotos={showAllPhotos}
               setShowAllPhotos={setShowAllPhotos}
             />
@@ -42,6 +45,8 @@ function App() {
             path="/listing/:id"
             element={
               <ListingDetails
+                listing={listing}
+                setListing={setListing}
                 showAllPhotos={showAllPhotos}
                 setShowAllPhotos={setShowAllPhotos}
               />
