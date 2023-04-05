@@ -51,7 +51,7 @@ const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) 
         {listing.title}
         </h2>
         <p className="text-sm font-medium pb-5">{listing.address}</p>
-        <div className="grid grid-cols-2 gap-2 border border-hidden rounded-xl overflow-hidden">
+        <div className="grid grid-cols-2 gap-2 border border-hidden rounded-xl overflow-hidden mb-10">
           <div>
             <img className="aspect-square object-cover" src={axios.defaults.baseURL + '/uploads/' + listing?.photos[0]} alt="listing1" />
           </div>
@@ -69,10 +69,11 @@ const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) 
           </div>
         </div>
         <div className="grid grid-cols-[3fr_2fr]">
-          <div className="col-span-2 sm:col-span-1">
-            <h2 className="pt-2 font-bold text-lg">Description</h2>
-            <p className="font-light text-gray-600 text-sm text-justify pb-4 border-b border-gray-300">
-              {expanded.description ? listing.description : listing.description.substring(0, 300) + '... '}
+          <div className="col-span-2 sm:col-span-1 pb-10">
+            <h2 className="font-bold text-xl pb-3">Description</h2>
+            <p className="font-light text-gray-600 text-sm text-justify pb-8 border-b border-gray-300">
+              { listing.description.length > 300 ? (expanded.description ? listing.description : listing.description.substring(0, 300) + '... ') : listing.description }
+            { listing.description.length > 300 &&
               <button
                 className="font-bold text-black w-fit text-md underline underline-offset-2 flex items-start pt-3 cursor-pointer"
                 name='description'
@@ -89,12 +90,13 @@ const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) 
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
-              </button>
+              </button>}
             </p>
           </div>
           <div className="col-span-2 sm:col-span-1 row-start-2">
-            <p className="font-light text-gray-600 text-sm text-justify py-4 border-b gap-1 border-gray-300">
-              {expanded.thingsToKnow ? listing.thingsToKnow : listing.thingsToKnow.substring(0, 300) + '... '}
+          <h2 className="font-bold text-xl pb-3">Things to Know</h2>
+            <p className="font-light text-gray-600 text-sm text-justify border-b pb-8 gap-1 border-gray-300">
+              { listing.thingsToKnow.length > 300 ? (expanded.thingsToKnow ? listing.thingsToKnow : listing.thingsToKnow.substring(0, 300) + '... ') : listing.thingsToKnow }
             { listing.thingsToKnow.length > 300 &&
               <button
                 className="font-bold text-black w-fit text-md underline underline-offset-2 flex items-start pt-3 cursor-pointer"
