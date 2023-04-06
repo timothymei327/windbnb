@@ -117,8 +117,28 @@ const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) 
               </button>}
             </p>
           </div>
+          <div className="row-span-2 h-fit bg-white shadow-xl border border-gray-300 p-4 rounded-2xl w-4/5 mx-auto font-light text-xs hidden sm:inline-block mx-auto">
+            <p className="text-lg"><span className="font-semibold">${listing.price}</span> night</p>
+            <form className="border border-gray-400 rounded-2xl my-4">
+              <div className="flex">
+                <div className="py-3 px-4 w-1/2 overflow-hidden">
+                  <label className="font-semibold">CHECK-IN</label>
+                  <input className="w-full" type="date"/>
+                </div>
+                <div className="py-3 px-4 border-l border-gray-400 w-1/2 overflow-hidden">
+                  <label className="font-semibold whitespace-nowrap">CHECK-OUT</label>
+                  <input className="w-full" type="date"/>
+                </div>
+              </div>
+              <div className="py-3 px-4 border-t border-gray-400">
+                <label className="font-semibold">GUESTS</label>
+                <input className="border-gray-400" type="number" min="1" max={listing.maxGuests} placeholder="1 guest"/>
+              </div>
+            </form>
+            <button className="primary text-lg font-semisbold">Reserve</button>
+          </div>
         </div>
-      </div>
+    </div>
   )
 }
 
