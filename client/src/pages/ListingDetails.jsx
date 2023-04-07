@@ -20,6 +20,13 @@ const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) 
     }
   }
 
+  const convertTime = (time) => {
+    const [hour, minute] = time.split(':');
+    const convertedHour = (hour > 12) ? hour - 12 : hour;
+    const amPm = (hour >= 12) ? 'PM' : 'AM';
+    return `${convertedHour}:${minute} ${amPm}`;
+  }  
+
   useEffect(() => {
     if (!id) {return}
     axios.get(`/listings/${id}`).then(res => {
@@ -69,13 +76,13 @@ const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) 
           </div>
         </div>
         <div className="grid grid-cols-[3fr_2fr]">
-          <div className="col-span-2 sm:col-span-1 pb-10">
-            <h2 className="font-bold text-xl pb-3">Description</h2>
+          <div className="col-span-2 sm:col-span-1">
+            <h2 className="font-medium text-xl pb-3">Description</h2>
             <p className="font-light text-gray-600 text-sm text-justify pb-8 border-b border-gray-300">
               { listing.description.length > 300 ? (expanded.description ? listing.description : listing.description.substring(0, 300) + '... ') : listing.description }
             { listing.description.length > 300 &&
               <button
-                className="font-bold text-black w-fit text-md underline underline-offset-2 flex items-start pt-3 cursor-pointer"
+                className="font-semibold text-black w-fit text-md underline underline-offset-2 flex items-start pt-3 cursor-pointer"
                 name='description'
                 onClick={toggleExpanded}
               >
@@ -83,7 +90,7 @@ const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
-                  viewBox="0 0 20 24"
+                  viewBox="0 0 22 28"
                   strokeWidth={2.5}
                   stroke="currentColor"
                   className={`w-6 h-6 transform ${expanded.description ? 'rotate-[270deg]' : ''}`}
@@ -93,13 +100,13 @@ const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) 
               </button>}
             </p>
           </div>
-          <div className="col-span-2 sm:col-span-1 row-start-2">
-          <h2 className="font-bold text-xl pb-3">Things to Know</h2>
+          <div className="col-span-2 sm:col-span-1 row-start-2 py-8">
+          <h2 className="font-medium text-xl pb-3">Things to Know</h2>
             <p className="font-light text-gray-600 text-sm text-justify border-b pb-8 gap-1 border-gray-300">
               { listing.thingsToKnow.length > 300 ? (expanded.thingsToKnow ? listing.thingsToKnow : listing.thingsToKnow.substring(0, 300) + '... ') : listing.thingsToKnow }
             { listing.thingsToKnow.length > 300 &&
               <button
-                className="font-bold text-black w-fit text-md underline underline-offset-2 flex items-start pt-3 cursor-pointer"
+                className="font-semibold text-black w-fit text-md underline underline-offset-2 flex items-start pt-3 cursor-pointer"
                 name='thingsToKnow'
                 onClick={toggleExpanded}
               >
@@ -107,7 +114,7 @@ const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
-                  viewBox="0 0 20 24"
+                  viewBox="0 0 22 28"
                   strokeWidth={2.5}
                   stroke="currentColor"
                   className={`w-6 h-6 transform ${expanded.thingsToKnow ? 'rotate-[270deg]' : ''}`}
@@ -116,6 +123,12 @@ const ListingDetails = ({listing, setListing, showAllPhotos, setShowAllPhotos}) 
                 </svg>
               </button>}
             </p>
+          </div>
+          <div className="col-span-2 sm:col-span-1 row-start-3 border-b border-gray-300 pb-8 font-light text-sm text-gray-600 flex flex-wrap justify-between gap-3">
+            <h3 className="font-medium text-xl text-black w-full">House Rules</h3>
+            <p>Check-in after {convertTime(listing.checkIn)}</p>
+            <p>Checkout before {convertTime(listing.checkOut)}</p>
+            <p>{listing.maxGuests} guests maximum</p>
           </div>
           <div className="row-span-2 h-fit bg-white shadow-xl border border-gray-300 p-4 rounded-2xl w-4/5 mx-auto font-light text-xs hidden sm:inline-block mx-auto">
             <p className="text-lg"><span className="font-semibold">${listing.price}</span> night</p>
