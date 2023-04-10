@@ -1,11 +1,10 @@
 import { useContext, useState, useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from './UserContext'
 
 const Header = ({FRONTENDURL, showAllPhotos, setShowAllPhotos}) => {
   const { user } = useContext(UserContext)
   const navigate = useNavigate()
-  const location = useLocation()
   const [screenSize, setScreenSize] = useState('');
   
   useEffect(() => {
@@ -26,7 +25,7 @@ const Header = ({FRONTENDURL, showAllPhotos, setShowAllPhotos}) => {
     }
   }
 
-  if (window.location.href.includes(FRONTENDURL + '/listing') && screenSize < 640 || showAllPhotos) {
+  if ((window.location.href.includes(FRONTENDURL + '/listing') && screenSize < 640) || showAllPhotos) {
     return (
       <div className='fixed z-50 w-screen top-[0px] p-5 bg-white border-b'>
       <button onClick={() => {handleBack()}} className="bg-white rounded-full shadow drop-shadow-md p-2 mx-auto">
@@ -55,7 +54,7 @@ const Header = ({FRONTENDURL, showAllPhotos, setShowAllPhotos}) => {
               d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
             />
           </svg>
-          <span className="font-bold text-primary text-2xl">windbnb</span>
+          <span className="font-semibold text-primary text-xl">windbnb</span>
         </Link>
         <div className="flex items-center text-sm gap-3 border border-gray-300 rounded-full py-2 px-6 shadow-md shadow-gray-300">
           <div className="font-medium">Anywhere</div>

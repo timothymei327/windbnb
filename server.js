@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const db = require('./db')
 const PORT = process.env.PORT || 3001
-const { User, Home } = require('./models')
+const { User, Home, Booking } = require('./models')
 const cookieParser = require('cookie-parser')
 const imageDownloader = require('image-downloader')
 const multer = require('multer')
@@ -185,6 +185,24 @@ app.get('/listings', async (req, res) => {
 app.get('/listings/:id', async (req, res) => {
   const { id } = req.params
   res.json(await Home.findById(id))
+})
+
+app.post('/bookings', (req, res) => {
+  mongoose.connect(process.env.MONGO_URL)
+  const { token } = req.cookies
+  const { checkInDate, checkOutDate, guests, totalPrice } = req.body
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
+    if (err) throw err
+    const createBooking = await Booking.create({
+      tenant: userData.id,
+      listing,
+      checkInDate,
+      checkOutDate,
+      guests,
+      totalPrice
+    })
+    res.json(createBooking)
+  })
 })
 
 app.listen(PORT, () => {

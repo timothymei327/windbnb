@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useContext, useState, useEffect } from 'react';
 import { UserContext } from './UserContext';
 
-function Footer({FRONTENDURL, listing, setListing}) {
+function Footer({FRONTENDURL}) {
   const { user } = useContext(UserContext)
   const location = useLocation()
   const [currentLocation, setCurrentLocation] = useState('');
@@ -22,18 +22,7 @@ function Footer({FRONTENDURL, listing, setListing}) {
 
   if (currentLocation.includes(FRONTENDURL + '/listing') && screenSize < 640) {
     return (
-      <div className="flex sm:hidden fixed bottom-0 w-full bg-white border-t border-gray-200">
-        <div className="py-6 px-4 flex w-full items-center justify-between">
-          <div className="text-left">
-            <span className="text-black font-bold">${listing && listing.price}</span> night
-            <br />
-            <input type='date' className='underline underline-offset-2' />
-          </div>
-          <div>
-            <button className='border border-primary bg-primary text-white px-4 py-2 rounded-lg'>Reserve</button>
-          </div>
-        </div>
-      </div>
+      <div></div>
     )
   } else {
     return (

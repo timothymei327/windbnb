@@ -15,9 +15,15 @@ axios.defaults.baseURL = 'http://localhost:3001'
 axios.defaults.withCredentials = true
 
 function App() {
+  const FRONTENDURL = 'http://localhost:3000'
   const [listing, setListing] = useState(null)
   const [showAllPhotos, setShowAllPhotos] = useState(false)
-  const FRONTENDURL = 'http://localhost:3000'
+  const [bookingValues, setBookingValues] = useState({
+    checkInDate: '',
+    checkOutDate: '',
+    guests: 1,
+    totalPrice: 0
+  })
 
   return (
     <UserContextProvider>
@@ -31,6 +37,8 @@ function App() {
               setListing={setListing}
               showAllPhotos={showAllPhotos}
               setShowAllPhotos={setShowAllPhotos}
+              bookingValues={bookingValues}
+              setBookingValues={setBookingValues}
             />
           }
         >
@@ -45,10 +53,13 @@ function App() {
             path="/listing/:id"
             element={
               <ListingDetails
+                FRONTENDURL={FRONTENDURL}
                 listing={listing}
                 setListing={setListing}
                 showAllPhotos={showAllPhotos}
                 setShowAllPhotos={setShowAllPhotos}
+                bookingValues={bookingValues}
+                setBookingValues={setBookingValues}
               />
             }
           />
