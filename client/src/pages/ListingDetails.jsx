@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
+import {differenceInCalendarDays} from "date-fns";
 import axios from "axios"
 import ListingMobileFooter from "../components/ListingMobileFooter"
 
@@ -36,6 +37,39 @@ const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setSho
       setListing(res.data)
     })
   }, [id, setListing])
+
+  let numberOfNights = 0;
+  if (bookingValues.checkInDate && bookingValues.checkOutDate) {
+    numberOfNights = differenceInCalendarDays(new Date(bookingValues.checkOutDate), new Date(bookingValues.checkInDate))
+  }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    switch (name) {
+      case 'checkInDate':
+        setBookingValues({
+          ...bookingValues,
+          checkInDate: value,
+          checkOutDate: bookingValues.checkOutDate < value ? '' : bookingValues.checkOutDate
+        });
+        break;
+      case 'checkOutDate':
+        setBookingValues({
+          ...bookingValues,
+          checkOutDate: value,
+          checkInDate: bookingValues.checkInDate > value ? '' : bookingValues.checkInDate
+        });
+        break;
+      case 'guests':
+        setBookingValues({
+          ...bookingValues,
+          guests: value
+        });
+        break;
+      default:
+        break;
+    }
+  };
 
   if (!listing) return 'Loading...'
 
@@ -135,24 +169,29 @@ const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setSho
               <p>{listing.maxGuests} guests maximum</p>
             </div>
             <div className="row-span-2 h-fit bg-white shadow-xl border border-gray-300 p-4 rounded-2xl w-4/5 mx-auto font-light text-xs hidden sm:inline-block mx-auto">
-              <p className="text-lg"><span className="font-semibold">${listing.price}</span> night</p>
+              <p className="text-lg"><span className="font-semibold text-xl">${listing.price}</span> night</p>
               <form className="border border-gray-400 rounded-2xl my-4">
                 <div className="flex">
                   <div className="py-3 px-4 w-1/2 overflow-hidden">
                     <label className="font-semibold">CHECK-IN</label>
-                    <input className="w-full" type="date"/>
+                    <input className="w-full" type="date" name="checkInDate" value={bookingValues.checkInDate} onChange={handleChange}/>
                   </div>
                   <div className="py-3 px-4 border-l border-gray-400 w-1/2 overflow-hidden">
                     <label className="font-semibold whitespace-nowrap">CHECK-OUT</label>
-                    <input className="w-full" type="date"/>
+                    <input className="w-full" type="date" name="checkOutDate" value={bookingValues.checkOutDate} onChange={handleChange}/>
                   </div>
                 </div>
                 <div className="py-3 px-4 border-t border-gray-400">
                   <label className="font-semibold">GUESTS</label>
-                  <input className="border-gray-400" type="number" min="1" max={listing.maxGuests} placeholder="1 guest"/>
+                  <input className="border-gray-400" type="number" name="guests" value={bookingValues.guests} onChange={handleChange} min="1" max={listing.maxGuests} placeholder="1 guest"/>
                 </div>
               </form>
+              <div className="flex justify-between text-lg py-3">
+                <span className="underline decoration-1">${listing.price} X {numberOfNights} nights</span>
+                <span>${listing.price * numberOfNights}</span>
+              </div>
               <button className="primary text-lg font-semisbold">Reserve</button>
+              <div className="text-xl px-2 mt-3 pt-3 flex justify-between border-t border-gray-400 font-medium">Total <span>${listing.price * numberOfNights}</span></div>
             </div>
           </div>
       </div>

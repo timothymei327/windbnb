@@ -29,6 +29,7 @@ const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingVal
         <div className="py-6 px-4 flex w-full items-center justify-between">
           <div className="text-left">
             <span className="text-black font-bold">${listing && listing.price}</span> night
+            <span>(total)</span>
             <NumberDropdown optionsCount={listing.maxGuests} bookingValues={bookingValues} setBookingValues={setBookingValues}/>
             <div className='flex gap-2 text-sm'>
             <input type='date' className='underline underline-offset-2 w-2/5' />

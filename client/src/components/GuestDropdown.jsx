@@ -15,6 +15,7 @@ const NumberDropdown = ({ optionsCount, bookingValues, setBookingValues }) => {
       <select
         className="border border-gray-300 rounded-md mx-3"
         id="number-select"
+        name="guests"
         value={bookingValues.guests}
         onChange={handleChange}
       >
