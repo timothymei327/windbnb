@@ -4,8 +4,14 @@ import {differenceInCalendarDays} from "date-fns";
 import axios from "axios"
 import ListingMobileFooter from "../components/ListingMobileFooter"
 
-const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setShowAllPhotos, bookingValues, setBookingValues}) => {
+const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setShowAllPhotos}) => {
   const {id} = useParams()
+  const [bookingValues, setBookingValues] = useState({
+    checkInDate: '',
+    checkOutDate: '',
+    guests: 1,
+    totalPrice: 0
+  })
   const [expanded, setExpanded] = useState({
     description: false,
     thingsToKnow: false
