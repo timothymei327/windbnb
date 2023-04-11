@@ -195,7 +195,7 @@ const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setSho
             </div>
           </div>
       </div>
-        <ListingMobileFooter FRONTENDURL={FRONTENDURL} listing={listing} bookingValues={bookingValues} setBookingValues={setBookingValues}/>
+        <ListingMobileFooter FRONTENDURL={FRONTENDURL} listing={listing} bookingValues={bookingValues} setBookingValues={setBookingValues} numberOfNights={numberOfNights}/>
     </div>
   )
 }
