@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import {differenceInCalendarDays} from "date-fns";
+import { differenceInCalendarDays, parse, isAfter } from "date-fns";
 import axios from "axios"
 import ListingMobileFooter from "../components/ListingMobileFooter"
 
@@ -10,6 +10,7 @@ const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setSho
     checkInDate: '',
     checkOutDate: '',
     guests: 1,
+    numberOfNights: 0,
     totalPrice: 0
   })
   const [expanded, setExpanded] = useState({
@@ -44,38 +45,53 @@ const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setSho
     })
   }, [id, setListing])
 
-  let numberOfNights = 0;
-  if (bookingValues.checkInDate && bookingValues.checkOutDate) {
-    numberOfNights = differenceInCalendarDays(new Date(bookingValues.checkOutDate), new Date(bookingValues.checkInDate))
-  }
-
   const handleChange = (event) => {
     const { name, value } = event.target;
+    let newCheckInDate = bookingValues.checkInDate;
+    let newCheckOutDate = bookingValues.checkOutDate;
+    let newNumberOfNights = bookingValues.numberOfNights;
+    let newTotalPrice = bookingValues.totalPrice;
+  
     switch (name) {
       case 'checkInDate':
-        setBookingValues({
-          ...bookingValues,
-          checkInDate: value,
-          checkOutDate: bookingValues.checkOutDate < value ? '' : bookingValues.checkOutDate
-        });
+        newCheckInDate = value;
+        if (bookingValues.checkOutDate && isAfter(parse(value, 'yyyy-MM-dd', new Date()), parse(bookingValues.checkOutDate, 'yyyy-MM-dd', new Date()))) {
+          newCheckOutDate = '';
+        }
         break;
       case 'checkOutDate':
-        setBookingValues({
-          ...bookingValues,
-          checkOutDate: value,
-          checkInDate: bookingValues.checkInDate > value ? '' : bookingValues.checkInDate
-        });
+        newCheckOutDate = value;
+        if (bookingValues.checkInDate && isAfter(parse(bookingValues.checkInDate, 'yyyy-MM-dd', new Date()), parse(value, 'yyyy-MM-dd', new Date()))) {
+          newCheckInDate = '';
+        }
         break;
       case 'guests':
         setBookingValues({
           ...bookingValues,
           guests: value
         });
-        break;
+        return;
       default:
         break;
     }
+  
+    if (newCheckInDate && newCheckOutDate) {
+      newNumberOfNights = differenceInCalendarDays(parse(newCheckOutDate, 'yyyy-MM-dd', new Date()), parse(newCheckInDate, 'yyyy-MM-dd', new Date()));
+      newTotalPrice = listing.price * newNumberOfNights;
+    } else {
+      newNumberOfNights = 0;
+      newTotalPrice = 0;
+    }
+  
+    setBookingValues({
+      ...bookingValues,
+      checkInDate: newCheckInDate,
+      checkOutDate: newCheckOutDate,
+      numberOfNights: newNumberOfNights,
+      totalPrice: newTotalPrice
+    });
   };
+  
 
   if (!listing) return 'Loading...'
 
@@ -193,15 +209,15 @@ const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setSho
                 </div>
               </form>
               <div className="flex justify-between text-lg py-3">
-                <span className="underline decoration-1">${listing.price} X {numberOfNights} nights</span>
-                <span>${listing.price * numberOfNights}</span>
+                <span className="underline decoration-1">${listing.price} X {bookingValues.numberOfNights} nights</span>
+                <span>${bookingValues.totalPrice}</span>
               </div>
               <button className="primary text-lg font-semisbold">Reserve</button>
-              <div className="text-xl px-2 mt-3 pt-3 flex justify-between border-t border-gray-400 font-medium">Total <span>${listing.price * numberOfNights}</span></div>
+              <div className="text-xl px-2 mt-3 pt-3 flex justify-between border-t border-gray-400 font-medium">Total <span>${bookingValues.totalPrice}</span></div>
             </div>
           </div>
       </div>
-        <ListingMobileFooter FRONTENDURL={FRONTENDURL} listing={listing} bookingValues={bookingValues} setBookingValues={setBookingValues} numberOfNights={numberOfNights}/>
+        <ListingMobileFooter FRONTENDURL={FRONTENDURL} listing={listing} bookingValues={bookingValues} setBookingValues={setBookingValues}/>
     </div>
   )
 }

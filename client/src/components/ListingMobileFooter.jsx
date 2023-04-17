@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom"
 import { useState, useEffect } from "react"
-import NumberDropdown from "./GuestDropdown"
+import GuestDropdown from "./GuestDropdown"
 
 const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingValues, numberOfNights}) => {
   const location = useLocation()
@@ -26,14 +26,16 @@ const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingVal
         setBookingValues({
           ...bookingValues,
           checkInDate: value,
-          checkOutDate: bookingValues.checkOutDate < value ? '' : bookingValues.checkOutDate
+          checkOutDate: bookingValues.checkOutDate < value ? '' : bookingValues.checkOutDate,
+          totalPrice: listing.price * numberOfNights
         });
         break;
       case 'checkOutDate':
         setBookingValues({
           ...bookingValues,
           checkOutDate: value,
-          checkInDate: bookingValues.checkInDate > value ? '' : bookingValues.checkInDate
+          checkInDate: bookingValues.checkInDate > value ? '' : bookingValues.checkInDate,
+          totalPrice: listing.price * numberOfNights
         });
         break;
       default:
@@ -47,7 +49,7 @@ const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingVal
         <div className="p-4 flex w-full items-center justify-between">
           <div className="flex flex-col gap-1">
             <p><span className="text-black font-bold">${listing && listing.price}</span> night</p>
-            <NumberDropdown optionsCount={listing.maxGuests} bookingValues={bookingValues} setBookingValues={setBookingValues}/>
+            <GuestDropdown optionsCount={listing.maxGuests} bookingValues={bookingValues} setBookingValues={setBookingValues}/>
             <div className='flex gap-2 text-sm'>
             <input type='date' className='underline underline-offset-2 w-2/5' name="checkInDate" value={bookingValues.checkInDate} onChange={handleChange}/>
             -
@@ -55,7 +57,7 @@ const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingVal
             </div>
           </div>
           <div className="flex flex-col text-center gap-1">
-            <span className="font-semibold">${listing.price * numberOfNights} total</span>
+            <span className="font-semibold">${bookingValues.totalPrice} total</span>
             <button className='border border-primary bg-primary text-white px-5 py-2 rounded-lg'>Reserve</button>
           </div>
         </div>

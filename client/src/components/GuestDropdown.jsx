@@ -1,8 +1,4 @@
-import React, { useState } from "react";
-
-const NumberDropdown = ({ optionsCount, bookingValues, setBookingValues }) => {
-  const [selectedValue, setSelectedValue] = useState(1);
-
+const GuestDropdown = ({ optionsCount, bookingValues, setBookingValues }) => {
   const options = Array.from({ length: optionsCount }, (_, index) => index + 1);
 
   const handleChange = (e) => {
@@ -29,4 +25,4 @@ const NumberDropdown = ({ optionsCount, bookingValues, setBookingValues }) => {
   );
 }
 
-export default NumberDropdown;
+export default GuestDropdown;
