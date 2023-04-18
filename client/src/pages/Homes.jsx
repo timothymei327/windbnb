@@ -25,10 +25,10 @@ const Homes = () => {
         <div className='mt-10'>
         {houses.length > 0 && houses.map(house => (
           <Link to={'/account/homes/' + house._id} key={house._id}>
-            <div className="max-w-md mx-auto bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden md:max-w-2xl mt-5">
-              <div className="md:flex">
-                <div className="md:shrink-0">
-                  <img className="h-48 w-full object-cover md:h-full md:w-48" src={axios.defaults.baseURL + '/uploads/' + house.photos[0]} alt="house" />
+            <div className="max-w-md mx-auto bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden sm:max-w-2xl mt-5">
+              <div className="sm:flex">
+                <div className="sm:shrink-0">
+                  <img className="h-48 w-full object-cover sm:h-full sm:w-48" src={axios.defaults.baseURL + '/uploads/' + house.photos[0]} alt="house" />
                 </div>
                 <div className="p-8">
                   <div className="uppercase tracking-wide text-sm text-primary font-semibold">{house.title}</div>
