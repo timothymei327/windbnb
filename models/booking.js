@@ -6,6 +6,7 @@ const bookingSchema = new Schema({
   checkInDate: String,
   checkOutDate: String,
   guests: Number,
+  numberOfNights: Number,
   totalPrice: Number
 })
 

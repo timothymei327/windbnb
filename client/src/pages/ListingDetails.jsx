@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { differenceInCalendarDays, parse, isAfter } from "date-fns";
 import axios from "axios"
 import ListingMobileFooter from "../components/ListingMobileFooter"
 
 const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setShowAllPhotos}) => {
   const {id} = useParams()
+  let navigate = useNavigate()
   const [bookingValues, setBookingValues] = useState({
     checkInDate: '',
     checkOutDate: '',
@@ -92,6 +93,11 @@ const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setSho
     });
   };
   
+  const createBooking = async () => {
+    const res = await axios.post('/bookings', {...bookingValues, listing: listing._id})
+    const bookingId = res.data._id
+    navigate(`/account/bookings/${bookingId}`)
+  }
 
   if (!listing) return 'Loading...'
 
@@ -212,12 +218,12 @@ const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setSho
                 <span className="underline decoration-1">${listing.price} X {bookingValues.numberOfNights} nights</span>
                 <span>${bookingValues.totalPrice}</span>
               </div>
-              <button className="primary text-lg font-semisbold">Reserve</button>
+              <button className="primary text-lg font-semisbold" onClick={createBooking}>Reserve</button>
               <div className="text-xl px-2 mt-3 pt-3 flex justify-between border-t border-gray-400 font-medium">Total <span>${bookingValues.totalPrice}</span></div>
             </div>
           </div>
       </div>
-        <ListingMobileFooter FRONTENDURL={FRONTENDURL} listing={listing} bookingValues={bookingValues} setBookingValues={setBookingValues}/>
+        <ListingMobileFooter FRONTENDURL={FRONTENDURL} listing={listing} bookingValues={bookingValues} setBookingValues={setBookingValues} handleChange={handleChange}/>
     </div>
   )
 }

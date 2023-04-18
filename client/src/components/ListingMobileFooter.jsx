@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 import { useState, useEffect } from "react"
 import GuestDropdown from "./GuestDropdown"
 
-const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingValues, numberOfNights}) => {
+const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingValues, handleChange}) => {
   const location = useLocation()
   const [currentLocation, setCurrentLocation] = useState('')
   const [screenSize, setScreenSize] = useState('')
@@ -18,30 +18,6 @@ const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingVal
       window.removeEventListener('resize', handleResize);
     }
   }, [location])
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    switch (name) {
-      case 'checkInDate':
-        setBookingValues({
-          ...bookingValues,
-          checkInDate: value,
-          checkOutDate: bookingValues.checkOutDate < value ? '' : bookingValues.checkOutDate,
-          totalPrice: listing.price * numberOfNights
-        });
-        break;
-      case 'checkOutDate':
-        setBookingValues({
-          ...bookingValues,
-          checkOutDate: value,
-          checkInDate: bookingValues.checkInDate > value ? '' : bookingValues.checkInDate,
-          totalPrice: listing.price * numberOfNights
-        });
-        break;
-      default:
-        break;
-    }
-  };
 
   if (currentLocation.includes(FRONTENDURL + '/listing') && screenSize < 640) {
     return (

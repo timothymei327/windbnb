@@ -187,21 +187,58 @@ app.get('/listings/:id', async (req, res) => {
   res.json(await Home.findById(id))
 })
 
-app.post('/bookings', (req, res) => {
-  mongoose.connect(process.env.MONGO_URL)
-  const { token } = req.cookies
-  const { checkInDate, checkOutDate, guests, totalPrice } = req.body
-  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
-    if (err) throw err
+app.post('/bookings', async (req, res) => {
+  try {
+    mongoose.connect(process.env.MONGO_URL)
+    const userData = await new Promise((resolve, reject) => {
+      jwt.verify(
+        req.cookies.token,
+        process.env.JWT_SECRET,
+        {},
+        (err, userData) => {
+          if (err) reject(err)
+          resolve(userData)
+        }
+      )
+    })
+    const {
+      checkInDate,
+      checkOutDate,
+      guests,
+      numberOfNights,
+      totalPrice,
+      listing
+    } = req.body
     const createBooking = await Booking.create({
       tenant: userData.id,
       listing,
       checkInDate,
       checkOutDate,
       guests,
+      numberOfNights,
       totalPrice
     })
     res.json(createBooking)
+  } catch (err) {
+    console.error(err)
+    res.status(500).send(err)
+  }
+})
+
+app.get('/bookings', async (req, res) => {
+  mongoose.connect(process.env.MONGO_URL)
+  return new Promise((resolve, reject) => {
+    jwt.verify(
+      req.cookies.token,
+      process.env.JWT_SECRET,
+      {},
+      async (err, userData) => {
+        if (err) throw err
+        resolve(userData)
+      }
+    )
+  }).then(async (userData) => {
+    res.json(await Booking.find({ tenant: userData.id }).populate('listing'))
   })
 })
 

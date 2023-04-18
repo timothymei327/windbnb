@@ -10,6 +10,8 @@ import Account from './pages/Account'
 import Homes from './pages/Homes'
 import HomesForm from './pages/HomesForm'
 import ListingDetails from './pages/ListingDetails'
+import Bookings from './pages/Bookings'
+import BookingDetails from './pages/BookingDetails'
 
 axios.defaults.baseURL = 'http://localhost:3001'
 axios.defaults.withCredentials = true
@@ -53,6 +55,8 @@ function App() {
               />
             }
           />
+          <Route path="/account/bookings" element={<Bookings />} />
+          <Route path="/account/bookings/:id" element={<BookingDetails />} />
         </Route>
       </Routes>
     </UserContextProvider>
