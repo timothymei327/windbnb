@@ -32,7 +32,7 @@ const Account = () => {
     <div>
       <AccountNav />
       {subpage === 'account' && (
-        <div className="text-center max-w-lg mx-auto">
+        <div className="text-center max-w-xs mx-auto">
           Logged in as {user.name} ({user.email})<br />
           <button onClick={logout} className="primary max-w-sm mt-2">Logout</button>
         </div>

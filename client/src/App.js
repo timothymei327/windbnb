@@ -56,7 +56,15 @@ function App() {
             }
           />
           <Route path="/account/bookings" element={<Bookings />} />
-          <Route path="/account/bookings/:id" element={<BookingDetails />} />
+          <Route
+            path="/account/bookings/:id"
+            element={
+              <BookingDetails
+                showAllPhotos={showAllPhotos}
+                setShowAllPhotos={setShowAllPhotos}
+              />
+            }
+          />
         </Route>
       </Routes>
     </UserContextProvider>
