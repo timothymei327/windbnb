@@ -58,7 +58,7 @@ const Login = () => {
           />
           {error && <div className='text-red-500 text-center font-semibold'>{error}</div>}
           <button className="primary">Login</button>
-          <div className='py-2 text-center'>Don't have an account yet? <Link to={'/signup'} className='text-blue-500 font-medium'>Sign Up</Link></div>
+          <div className='py-2 text-center'>Don't have an account yet? <Link to={'/signup'} className='text-blue-500 font-medium inline-block'>Sign Up</Link></div>
         </form>
       </div>
     </div>

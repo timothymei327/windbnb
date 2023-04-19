@@ -43,7 +43,7 @@ const ListingsForm = () => {
   const saveListing = async (e) => {
     e.preventDefault()
     if (id) {
-      await axios.put('/listings', {id, formValues})
+      await axios.put('/account/listings', {id, formValues})
       setFormValues(initialValues)
       navigate('/account/listings')
     } else {
@@ -65,7 +65,7 @@ const ListingsForm = () => {
   
   const deleteListing = async () => {
     try {
-      const res = await axios.delete(`/listings/${id}`)
+      const res = await axios.delete(`/account/listings/${id}`)
       navigate('/index')
       console.log('Listing deleted successfully')
       return res.data
@@ -102,7 +102,7 @@ const ListingsForm = () => {
     if (!id){
       return
     }
-    axios.get('/listings/' + id).then(res => {
+    axios.get('/account/listings/' + id).then(res => {
       const {data} = res
       setFormValues({
         title: data.title,

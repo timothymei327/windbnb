@@ -172,7 +172,7 @@ app.post('/listings', (req, res) => {
   })
 })
 
-app.get('/listings', (req, res) => {
+app.get('/account/listings', (req, res) => {
   const { token } = req.cookies
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
     const { id } = userData
@@ -180,12 +180,12 @@ app.get('/listings', (req, res) => {
   })
 })
 
-app.get('/listings/:id', async (req, res) => {
+app.get('/account/listings/:id', async (req, res) => {
   const { id } = req.params
   res.json(await Listing.findById(id))
 })
 
-app.put('/listings', async (req, res) => {
+app.put('/account/listings', async (req, res) => {
   const { token } = req.cookies
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
     if (err) throw err
@@ -197,7 +197,7 @@ app.put('/listings', async (req, res) => {
   })
 })
 
-app.delete('/listings/:id', (req, res) => {
+app.delete('/account/listings/:id', (req, res) => {
   mongoose.connect(process.env.MONGO_URL)
   const { token } = req.cookies
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {

@@ -7,7 +7,7 @@ const Listings = () => {
   const [houses, setHouses] = useState([])
 
   useEffect(() => {
-    axios.get('/listings').then(({data}) => {
+    axios.get('/account/listings').then(({data}) => {
       setHouses(data)
     })
   }, [])
