@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import AccountNav from '../components/AccountNav'
 
 const Bookings = () => {
-  const [bookings, setBookings] = useState('')
+  const [bookings, setBookings] = useState([])
   useEffect(() => {
     axios.get('/bookings').then(res => {
     setBookings(res.data)
@@ -15,8 +15,7 @@ const Bookings = () => {
     <div className='w-screen px-5 pb-8'>
       <AccountNav />
       <div>
-        {bookings?.length > 0 && bookings.map(booking => (
-          <div>
+        {bookings.length > 0 && bookings.map(booking => (
             <Link to={'/account/bookings/' + booking._id} key={booking._id}>
               <div className="max-w-sm mx-auto bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden sm:max-w-2xl mt-5">
                 <div className="sm:flex">
@@ -62,7 +61,6 @@ const Bookings = () => {
                 </div>
               </div>
             </Link>
-          </div>
         ))}
       </div>
     </div>

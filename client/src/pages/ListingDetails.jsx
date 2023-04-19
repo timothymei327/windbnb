@@ -223,7 +223,7 @@ const ListingDetails = ({FRONTENDURL, listing, setListing, showAllPhotos, setSho
             </div>
           </div>
       </div>
-        <ListingMobileFooter FRONTENDURL={FRONTENDURL} listing={listing} bookingValues={bookingValues} setBookingValues={setBookingValues} handleChange={handleChange}/>
+        <ListingMobileFooter FRONTENDURL={FRONTENDURL} listing={listing} bookingValues={bookingValues} setBookingValues={setBookingValues} handleChange={handleChange} createBooking={createBooking}/>
     </div>
   )
 }

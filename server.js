@@ -119,6 +119,25 @@ app.delete('/photos', (req, res) => {
   })
 })
 
+app.delete('/allPhotos', (req, res) => {
+  const { fileNames } = req.body
+  if (!Array.isArray(fileNames)) {
+    return res.status(400).json({ message: 'Invalid fileNames parameter' })
+  }
+  const errors = []
+  fileNames.forEach((fileName) => {
+    fs.unlink(__dirname + '/uploads/' + fileName, (err) => {
+      if (err) {
+        errors.push({ fileName, message: 'Could not delete the file. ' + err })
+      }
+    })
+  })
+  if (errors.length) {
+    return res.status(500).json({ errors })
+  }
+  res.status(200).json({ message: 'Files are deleted.' })
+})
+
 app.post('/homes', (req, res) => {
   mongoose.connect(process.env.MONGO_URL)
   const { token } = req.cookies
@@ -175,6 +194,25 @@ app.put('/homes', async (req, res) => {
       req.body.formValues
     )
     res.json(modifyHome)
+  })
+})
+
+app.delete('/homes/:id', (req, res) => {
+  mongoose.connect(process.env.MONGO_URL)
+  const { token } = req.cookies
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
+    if (err) throw err
+    const deletedHome = await Home.findOneAndDelete({
+      _id: req.params.id,
+      owner: userData.id
+    })
+    if (!deletedHome) {
+      res.status(404).json({
+        message: 'Home not found or you are not authorized to delete it'
+      })
+    } else {
+      res.json(deletedHome)
+    }
   })
 })
 
@@ -240,6 +278,39 @@ app.get('/bookings', async (req, res) => {
   }).then(async (userData) => {
     res.json(await Booking.find({ tenant: userData.id }).populate('listing'))
   })
+})
+
+app.delete('/bookings/:id', async (req, res) => {
+  try {
+    mongoose.connect(process.env.MONGO_URL)
+    const userData = await new Promise((resolve, reject) => {
+      jwt.verify(
+        req.cookies.token,
+        process.env.JWT_SECRET,
+        {},
+        (err, userData) => {
+          if (err) reject(err)
+          resolve(userData)
+        }
+      )
+    })
+    await Booking.deleteOne({ _id: req.params.id, tenant: userData.id })
+    res.sendStatus(204) // send success response with no content
+  } catch (err) {
+    console.error(err)
+    res.status(500).send(err)
+  }
+})
+
+app.delete('/bookings/:listingId', async (req, res) => {
+  try {
+    const { listingId } = req.params
+    const result = await Booking.deleteMany({ listing: listingId })
+    res.send(`${result.deletedCount} bookings deleted successfully.`)
+  } catch (error) {
+    console.log(`Error deleting bookings: ${error.message}`)
+    res.status(500).send('An error occurred while deleting bookings.')
+  }
 })
 
 app.listen(PORT, () => {

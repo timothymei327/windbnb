@@ -1,9 +1,10 @@
 import axios from "axios"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 const BookingDetails = ({showAllPhotos, setShowAllPhotos}) => {
   const {id} = useParams()
+  let navigate = useNavigate()
   const [booking, setBooking] = useState(null)
   useEffect(() => {
     if (id) {
@@ -15,6 +16,16 @@ const BookingDetails = ({showAllPhotos, setShowAllPhotos}) => {
       });
     }
   }, [id]);
+
+  const deleteBooking = async () => {
+    try {
+      const res = await axios.delete(`/bookings/${id}`)
+      navigate('/index')
+      return res.data
+    } catch (error) {
+      throw error
+    }
+  }
 
   if (!booking) {
     return 'Loading...';
@@ -95,7 +106,11 @@ const BookingDetails = ({showAllPhotos, setShowAllPhotos}) => {
                 <span className="hidden sm:inline-block whitespace-nowrap">Show all photos</span>
               </button>
             </div>
-            </div>
+          </div>
+          <div className="flex justify-around">
+            <button className="bg-[#00A699] text-white text-opacity-80 border rounded-md p-3" onClick={() => navigate(`/listing/${booking.listing._id}`)}>View Full Listing</button>
+            <button className="bg-[#FC642D] text-white text-opacity-80 border rounded-md p-3" onClick={deleteBooking}>Cancel Booking</button>
+          </div>
       </div>
     </div>
   )

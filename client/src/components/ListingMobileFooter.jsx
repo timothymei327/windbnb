@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 import { useState, useEffect } from "react"
 import GuestDropdown from "./GuestDropdown"
 
-const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingValues, handleChange}) => {
+const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingValues, handleChange, createBooking}) => {
   const location = useLocation()
   const [currentLocation, setCurrentLocation] = useState('')
   const [screenSize, setScreenSize] = useState('')
@@ -34,7 +34,7 @@ const ListingMobileFooter = ({FRONTENDURL, listing, bookingValues, setBookingVal
           </div>
           <div className="flex flex-col text-center gap-1">
             <span className="font-semibold">${bookingValues.totalPrice} total</span>
-            <button className='border border-primary bg-primary text-white px-5 py-2 rounded-lg'>Reserve</button>
+            <button className='border border-primary bg-primary text-white px-5 py-2 rounded-lg' onClick={createBooking}>Reserve</button>
           </div>
         </div>
       </div>

@@ -52,6 +52,47 @@ const HomesForm = () => {
       navigate('/account/homes')
     }
   }
+  
+  const deletePhotos = async () => {
+    try {
+      let fileNames = formValues.photos
+      await axios.delete('/allPhotos', {data: {fileNames}})
+      console.log('Photos deleted successfully')
+    } catch (error) {
+      console.log('Error deleting photos:', error.message)
+    }
+  }
+  
+  const deleteHome = async () => {
+    try {
+      const res = await axios.delete(`/homes/${id}`)
+      navigate('/index')
+      console.log('Home deleted successfully')
+      return res.data
+    } catch (error) {
+      console.log('Error deleting home:', error.message)
+      throw error
+    }
+  }
+
+  const deleteBookings = async () => {
+    try {
+      await axios.delete(`/bookings/listing/${id}`)
+      console.log('Bookings deleted successfully')
+    } catch (error) {
+      console.log('Error deleting bookings:', error.message)
+    }
+  }
+  
+  const handleDeleteButtonClick = async () => {
+    try {
+      await Promise.all([deletePhotos(), deleteBookings(), deleteHome()])
+      console.log('Deletion process completed successfully')
+      navigate('/index')
+    } catch (error) {
+      console.log('Error deleting files:', error.message)
+    }
+  }  
 
   const handleInvalid = (e) => {
       e.target.className = 'placeholder-red-400 border border-red-500'
@@ -174,6 +215,7 @@ const HomesForm = () => {
                 />
               </div>
             </div>
+            {id && <button className='bg-[#FC642D] text-white text-opacity-80 my-1 p-3 w-full rounded-lg' onClick={handleDeleteButtonClick}>Delete</button>}
             <button className='primary' type='submit'>Save</button>
           </form>
         </div>
