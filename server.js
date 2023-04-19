@@ -302,10 +302,10 @@ app.delete('/bookings/:id', async (req, res) => {
   }
 })
 
-app.delete('/bookings/:listingId', async (req, res) => {
+app.delete('/listings/bookings/:id', async (req, res) => {
   try {
-    const { listingId } = req.params
-    const result = await Booking.deleteMany({ listing: listingId })
+    const { id } = req.params
+    const result = await Booking.deleteMany({ listing: id })
     res.send(`${result.deletedCount} bookings deleted successfully.`)
   } catch (error) {
     console.log(`Error deleting bookings: ${error.message}`)

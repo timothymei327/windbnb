@@ -77,7 +77,7 @@ const HomesForm = () => {
 
   const deleteBookings = async () => {
     try {
-      await axios.delete(`/bookings/listing/${id}`)
+      await axios.delete(`/listings/bookings/${id}`)
       console.log('Bookings deleted successfully')
     } catch (error) {
       console.log('Error deleting bookings:', error.message)
