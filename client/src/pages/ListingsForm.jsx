@@ -5,7 +5,7 @@ import PhotosUploader from "../components/PhotosUploader"
 import Perks from "../components/Perks"
 import AccountNav from '../components/AccountNav'
 
-const HomesForm = () => {
+const ListingsForm = () => {
   let navigate = useNavigate()
   const {id} = useParams()
 
@@ -40,16 +40,16 @@ const HomesForm = () => {
     }
   }
 
-  const saveHome = async (e) => {
+  const saveListing = async (e) => {
     e.preventDefault()
     if (id) {
-      await axios.put('/homes', {id, formValues})
+      await axios.put('/listings', {id, formValues})
       setFormValues(initialValues)
-      navigate('/account/homes')
+      navigate('/account/listings')
     } else {
-      await axios.post('/homes', formValues)
+      await axios.post('/listings', formValues)
       setFormValues(initialValues)
-      navigate('/account/homes')
+      navigate('/account/listings')
     }
   }
   
@@ -63,14 +63,14 @@ const HomesForm = () => {
     }
   }
   
-  const deleteHome = async () => {
+  const deleteListing = async () => {
     try {
-      const res = await axios.delete(`/homes/${id}`)
+      const res = await axios.delete(`/listings/${id}`)
       navigate('/index')
-      console.log('Home deleted successfully')
+      console.log('Listing deleted successfully')
       return res.data
     } catch (error) {
-      console.log('Error deleting home:', error.message)
+      console.log('Error deleting listing:', error.message)
       throw error
     }
   }
@@ -86,7 +86,7 @@ const HomesForm = () => {
   
   const handleDeleteButtonClick = async () => {
     try {
-      await Promise.all([deletePhotos(), deleteBookings(), deleteHome()])
+      await Promise.all([deletePhotos(), deleteBookings(), deleteListing()])
       console.log('Deletion process completed successfully')
       navigate('/index')
     } catch (error) {
@@ -102,7 +102,7 @@ const HomesForm = () => {
     if (!id){
       return
     }
-    axios.get('/homes/' + id).then(res => {
+    axios.get('/listings/' + id).then(res => {
       const {data} = res
       setFormValues({
         title: data.title,
@@ -124,7 +124,7 @@ const HomesForm = () => {
     <div>
       <AccountNav />
         <div>
-          <form className='sm:max-w-xl max-w-[80%] mx-auto py-5' onSubmit={saveHome}>
+          <form className='sm:max-w-xl max-w-[80%] mx-auto py-5' onSubmit={saveListing}>
             <label className='text-xl px-1 font-medium'>Title</label>
             <input
               name="title"
@@ -152,7 +152,7 @@ const HomesForm = () => {
             type="text"
             value={formValues.description}
             rows="5"
-            placeholder='Description of your home' 
+            placeholder='Description of your listing' 
             onChange={handleChange}
             onInvalid={handleInvalid}
             required
@@ -223,4 +223,4 @@ const HomesForm = () => {
   )
 }
 
-export default HomesForm
+export default ListingsForm

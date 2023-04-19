@@ -2,7 +2,7 @@ const { Schema } = require('mongoose')
 
 const bookingSchema = new Schema({
   tenant: { type: Schema.Types.ObjectId, ref: 'User' },
-  listing: { type: Schema.Types.ObjectId, ref: 'Home' },
+  listing: { type: Schema.Types.ObjectId, ref: 'Listing' },
   checkInDate: String,
   checkOutDate: String,
   guests: Number,

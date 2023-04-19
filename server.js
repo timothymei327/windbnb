@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const db = require('./db')
 const PORT = process.env.PORT || 3001
-const { User, Home, Booking } = require('./models')
+const { User, Listing, Booking } = require('./models')
 const cookieParser = require('cookie-parser')
 const imageDownloader = require('image-downloader')
 const multer = require('multer')
@@ -138,7 +138,7 @@ app.delete('/allPhotos', (req, res) => {
   res.status(200).json({ message: 'Files are deleted.' })
 })
 
-app.post('/homes', (req, res) => {
+app.post('/listings', (req, res) => {
   mongoose.connect(process.env.MONGO_URL)
   const { token } = req.cookies
   const {
@@ -155,7 +155,7 @@ app.post('/homes', (req, res) => {
   } = req.body
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
     if (err) throw err
-    const createHome = await Home.create({
+    const createListing = await Listing.create({
       owner: userData.id,
       title,
       address,
@@ -168,61 +168,61 @@ app.post('/homes', (req, res) => {
       maxGuests,
       price
     })
-    res.json(createHome)
+    res.json(createListing)
   })
 })
 
-app.get('/homes', (req, res) => {
+app.get('/listings', (req, res) => {
   const { token } = req.cookies
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
     const { id } = userData
-    res.json(await Home.find({ owner: id }))
+    res.json(await Listing.find({ owner: id }))
   })
 })
 
-app.get('/homes/:id', async (req, res) => {
+app.get('/listings/:id', async (req, res) => {
   const { id } = req.params
-  res.json(await Home.findById(id))
+  res.json(await Listing.findById(id))
 })
 
-app.put('/homes', async (req, res) => {
+app.put('/listings', async (req, res) => {
   const { token } = req.cookies
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
     if (err) throw err
-    const modifyHome = await Home.findByIdAndUpdate(
+    const modifyListing = await Listing.findByIdAndUpdate(
       req.body.id,
       req.body.formValues
     )
-    res.json(modifyHome)
+    res.json(modifyListing)
   })
 })
 
-app.delete('/homes/:id', (req, res) => {
+app.delete('/listings/:id', (req, res) => {
   mongoose.connect(process.env.MONGO_URL)
   const { token } = req.cookies
   jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
     if (err) throw err
-    const deletedHome = await Home.findOneAndDelete({
+    const deletedListing = await Listing.findOneAndDelete({
       _id: req.params.id,
       owner: userData.id
     })
-    if (!deletedHome) {
+    if (!deletedListing) {
       res.status(404).json({
-        message: 'Home not found or you are not authorized to delete it'
+        message: 'Listing not found or you are not authorized to delete it'
       })
     } else {
-      res.json(deletedHome)
+      res.json(deletedListing)
     }
   })
 })
 
 app.get('/listings', async (req, res) => {
-  res.json(await Home.find())
+  res.json(await Listing.find())
 })
 
 app.get('/listings/:id', async (req, res) => {
   const { id } = req.params
-  res.json(await Home.findById(id))
+  res.json(await Listing.findById(id))
 })
 
 app.post('/bookings', async (req, res) => {

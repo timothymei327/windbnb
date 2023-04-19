@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 const userSchema = require('./user')
-const homeSchema = require('./home')
+const listingSchema = require('./listing')
 const bookingSchema = require('./booking')
 
 const User = mongoose.model('User', userSchema)
-const Home = mongoose.model('Home', homeSchema)
+const Listing = mongoose.model('Listing', listingSchema)
 const Booking = mongoose.model('Booking', bookingSchema)
 
 module.exports = {
   User,
-  Home,
+  Listing,
   Booking
 }

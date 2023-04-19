@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { UserContext } from "../components/UserContext"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
-import Homes from "./Homes"
+import Listings from "./Listings"
 import AccountNav from "../components/AccountNav"
 
 const Account = () => {
@@ -37,7 +37,7 @@ const Account = () => {
           <button onClick={logout} className="primary max-w-sm mt-2">Logout</button>
         </div>
       )}
-      {subpage === 'homes' && (<Homes />)}
+      {subpage === 'listings' && (<Listings />)}
     </div>
   )
 }

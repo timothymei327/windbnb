@@ -7,8 +7,8 @@ import Index from './pages/Index'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Account from './pages/Account'
-import Homes from './pages/Homes'
-import HomesForm from './pages/HomesForm'
+import Listings from './pages/Listings'
+import ListingsForm from './pages/ListingsForm'
 import ListingDetails from './pages/ListingDetails'
 import Bookings from './pages/Bookings'
 import BookingDetails from './pages/BookingDetails'
@@ -40,9 +40,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/account/homes" element={<Homes />} />
-          <Route path="/account/homes/new" element={<HomesForm />} />
-          <Route path="/account/homes/:id" element={<HomesForm />} />
+          <Route path="/account/listings" element={<Listings />} />
+          <Route path="/account/listings/new" element={<ListingsForm />} />
+          <Route path="/account/listings/:id" element={<ListingsForm />} />
           <Route
             path="/listing/:id"
             element={
