@@ -8,13 +8,17 @@ Windbnb is a clone of the popular travel and accommodation website, Airbnb. Our 
 
 ## **_Getting Started_**
 
+##### `Fork` and `Clone` the project, `npm install` dependencies in the root directory as well as in the `client` directory. Then, connect your mongoDB database via a connection string in a `.env` file on the backend.
+
+##### Run `npm run dev` to spin up the backend server. Navigate to the client directory and run `npm start` to spin up the frontend.
+
 ### **_Component Hierarchy Diagram_**
 
 ![Component Hierarchy Diagram](/project_media/windbnb_component_heirarchy_diagram.png)
 
-### **_ERD_**
+### **_Entity Relationship Diagram_**
 
-![ERD](/img/ERD.png)
+![ERD](/project_media/windbnb_entity_relation_diagram.png)
 
 ## **_Technologies_**
 
@@ -23,4 +27,4 @@ Windbnb is a clone of the popular travel and accommodation website, Airbnb. Our 
 - Node.js
 - React
 - TailwindCSS
--
+- Bcrypt/JWT Authentication
