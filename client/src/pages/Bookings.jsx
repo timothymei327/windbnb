@@ -12,7 +12,7 @@ const Bookings = () => {
   }, [])
 
   return (
-    <div className='px-5 pb-8'>
+    <div className='px-5 pb-8 w-screen sm:w-full'>
       <AccountNav />
       <div>
         {bookings.length > 0 && bookings.map(booking => (
@@ -24,7 +24,7 @@ const Bookings = () => {
                   </div>
                   <div className="p-8">
                     <div className="uppercase tracking-wide text-sm text-primary font-semibold">{booking.listing.title}</div>
-                    <ul className="mt-2 text-slate-600">
+                    <ul className="mt-2 text-slate-600 w-max">
                       <li className="flex gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
