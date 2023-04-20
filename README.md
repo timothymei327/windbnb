@@ -25,28 +25,7 @@ Windbnb is a clone of the popular travel and accommodation website, Airbnb. Our 
 
 <div align="center">
   <pre>
-    <img src="/project_media/desktop_screenshots/home_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
-    <img src="/project_media/desktop_screenshots/listingDetails1_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
-    <img src="/project_media/desktop_screenshots/listingDetails2_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
-    <img src="/project_media/desktop_screenshots/login_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
-    <img src="/project_media/desktop_screenshots/signup_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
-    <img src="/project_media/desktop_screenshots/account_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
-    <img src="/project_media/desktop_screenshots/bookings_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
-    <img src="/project_media/desktop_screenshots/bookingDetails_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
-    <img src="/project_media/desktop_screenshots/listings_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
-    <img src="/project_media/desktop_screenshots/listingsForm1_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
-    <img src="/project_media/desktop_screenshots/ListingsForm2_ss.png" height="300" />
-    &nbsp;&nbsp;&nbsp;
+    <img src="/project_media/desktop_screenshots/home_ss.png" height="300" />&nbsp;&nbsp;&nbsp;<img src="/project_media/desktop_screenshots/listingDetails1_ss.png" height="300" />&nbsp;&nbsp;&nbsp;<img src="/project_media/desktop_screenshots/listingDetails2_ss.png" height="300" />&nbsp;&nbsp;&nbsp;<img src="/project_media/desktop_screenshots/login_ss.png" height="300" />&nbsp;&nbsp;&nbsp;<img src="/project_media/desktop_screenshots/signup_ss.png" height="300" />&nbsp;&nbsp;&nbsp;<img src="/project_media/desktop_screenshots/account_ss.png" height="300" />&nbsp;&nbsp;&nbsp;<img src="/project_media/desktop_screenshots/bookings_ss.png" height="300" />&nbsp;&nbsp;&nbsp;<img src="/project_media/desktop_screenshots/bookingDetails_ss.png" height="300" />&nbsp;&nbsp;&nbsp;<img src="/project_media/desktop_screenshots/listings_ss.png" height="300" />&nbsp;&nbsp;&nbsp;<img src="/project_media/desktop_screenshots/listingsForm1_ss.png" height="300" />&nbsp;&nbsp;&nbsp;<img src="/project_media/desktop_screenshots/listingsForm2_ss.png" height="300" />&nbsp;&nbsp;&nbsp;
   </pre>
 </div>
 
