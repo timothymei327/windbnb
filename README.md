@@ -1,4 +1,4 @@
-![Windbnb](/project_media/windbnb%20logo.jpg)
+![Windbnb](/project_media/windbnb_logo.png)
 
 ## By: [Timothy Mei](https://www.linkedin.com/in/timothymei/)
 
