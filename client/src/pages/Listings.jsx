@@ -13,7 +13,7 @@ const Listings = () => {
   }, [])
 
   return (
-    <div className='w-screen px-5 pb-8'>
+    <div className='px-5 pb-8'>
       <AccountNav />
         <div className='text-center'>
           <Link to={'/account/listings/new'} className='inline-flex gap-1 bg-primary text-white py-2 px-5 rounded-full' >
